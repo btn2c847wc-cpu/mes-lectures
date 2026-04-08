@@ -17,7 +17,6 @@
   --green-dark: #2d5a2d;
   --green-mid: #4a7a4a;
   --text-beige: #f5eedc;
-  --text-beige-dim: #ddd0b0;
   --text-dark: #2a3d2a;
   --text-mid: #3d5a3d;
   --star: #b8860b;
@@ -26,7 +25,6 @@
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
 
-/* HEADER */
 .header { position: sticky; top: 0; z-index: 100; background: rgba(216,232,216,0.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 16px 20px 12px; border-bottom: 1px solid var(–border); }
 .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .app-title { font-family: ‘Playfair Display’, serif; font-size: 22px; color: var(–green-dark); letter-spacing: 0.02em; }
@@ -34,12 +32,10 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 .icon-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(–border); background: var(–surface); color: var(–green-mid); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: all 0.2s; }
 .icon-btn:active { transform: scale(0.92); }
 
-/* TABS */
 .tabs { display: flex; gap: 4px; background: var(–surface); border-radius: 10px; padding: 3px; }
 .tab { flex: 1; text-align: center; padding: 7px 4px; border-radius: 8px; font-size: 12px; font-weight: 500; color: var(–text-mid); cursor: pointer; transition: all 0.2s; }
 .tab.active { background: var(–green-dark); color: var(–text-beige); }
 
-/* STATS BAR */
 .stats-bar { display: flex; padding: 10px 20px; border-bottom: 1px solid var(–border); overflow-x: auto; scrollbar-width: none; }
 .stats-bar::-webkit-scrollbar { display: none; }
 .stat-item { flex: 0 0 auto; text-align: center; padding: 0 16px; border-right: 1px solid var(–border); }
@@ -47,7 +43,6 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 .stat-num { font-family: ‘Playfair Display’, serif; font-size: 20px; color: var(–green-dark); display: block; line-height: 1.1; }
 .stat-label { font-size: 11px; color: var(–text-mid); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px; }
 
-/* MAIN */
 .main { padding: 16px 16px 110px; }
 .search-wrap { position: relative; margin-bottom: 16px; }
 .search-input { width: 100%; padding: 12px 16px 12px 40px; border-radius: var(–radius); border: 1px solid var(–border); background: var(–surface); color: var(–text-dark); font-family: ‘DM Sans’, sans-serif; font-size: 15px; outline: none; transition: border-color 0.2s; }
@@ -55,7 +50,6 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 .search-input:focus { border-color: var(–green-dark); }
 .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(–text-mid); font-size: 16px; pointer-events: none; }
 
-/* BOOK GRID */
 .book-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
 .book-card { background: var(–card); border-radius: var(–radius); overflow: hidden; border: 1px solid var(–border); cursor: pointer; transition: transform 0.15s; position: relative; }
 .book-card:active { transform: scale(0.96); }
@@ -76,13 +70,11 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 .empty-state h3 { font-family: ‘Playfair Display’, serif; font-size: 18px; color: var(–green-dark); margin-bottom: 8px; }
 .empty-state p { font-size: 13px; color: var(–text-mid); line-height: 1.5; }
 
-/* FABS */
 .fab { position: fixed; bottom: 24px; right: 20px; width: 54px; height: 54px; border-radius: 50%; background: var(–green-dark); color: var(–text-beige); font-size: 26px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; box-shadow: 0 4px 20px rgba(45,90,45,0.4); transition: transform 0.15s; z-index: 99; }
 .fab:active { transform: scale(0.92); }
 .fab-ai { position: fixed; bottom: 24px; left: 20px; width: 54px; height: 54px; border-radius: 50%; background: var(–text-beige); color: var(–green-dark); font-size: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid var(–green-mid); box-shadow: 0 4px 20px rgba(45,90,45,0.2); transition: transform 0.15s; z-index: 99; }
 .fab-ai:active { transform: scale(0.92); }
 
-/* MODAL */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; display: none; align-items: flex-end; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 .modal-overlay.open { display: flex; }
 .modal { width: 100%; max-height: 92vh; background: var(–bg); border-radius: 20px 20px 0 0; overflow-y: auto; -webkit-overflow-scrolling: touch; animation: slideUp 0.28s cubic-bezier(0.32,0.72,0,1); padding-bottom: env(safe-area-inset-bottom, 20px); }
@@ -93,7 +85,6 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 .modal-close { width: 30px; height: 30px; border-radius: 50%; background: var(–surface); border: 1px solid var(–border); color: var(–text-mid); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
 .modal-body { padding: 20px; }
 
-/* FORM */
 .form-group { margin-bottom: 16px; }
 .form-label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.07em; color: var(–green-mid); margin-bottom: 6px; font-weight: 500; }
 .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(–border); background: var(–surface); color: var(–text-dark); font-family: ‘DM Sans’, sans-serif; font-size: 15px; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
@@ -102,13 +93,11 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 .form-textarea { resize: none; min-height: 80px; line-height: 1.5; }
 .form-select { background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’ viewBox=‘0 0 12 8’%3E%3Cpath fill=’%234a7a4a’ d=‘M6 8L0 0h12z’/%3E%3C/svg%3E”); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 
-/* STAR RATING */
 .star-rating { display: flex; gap: 6px; }
 .star-btn { font-size: 28px; color: var(–border); background: none; border: none; cursor: pointer; transition: transform 0.1s, color 0.1s; padding: 0; line-height: 1; }
 .star-btn:active { transform: scale(1.2); }
 .star-btn.active { color: var(–star); }
 
-/* SEARCH RESULTS */
 .search-results { margin-top: 8px; border-radius: 10px; overflow: hidden; border: 1px solid var(–border); background: var(–surface); display: none; max-height: 200px; overflow-y: auto; }
 .search-results.visible { display: block; }
 .search-result-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(–border); cursor: pointer; transition: background 0.15s; }
@@ -120,7 +109,6 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 .result-author { font-size: 11px; color: var(–text-mid); margin-top: 2px; }
 .searching-indicator { padding: 16px; text-align: center; color: var(–text-mid); font-size: 13px; }
 
-/* DETAIL */
 .detail-cover-wrap { display: flex; justify-content: center; padding: 20px 0 16px; }
 .detail-cover { width: 100px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
 .detail-cover-placeholder { width: 100px; height: 150px; border-radius: 8px; background: var(–card); display: flex; align-items: center; justify-content: center; font-size: 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
@@ -138,14 +126,12 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 .detail-note { font-size: 14px; line-height: 1.6; color: var(–text-mid); font-style: italic; }
 .detail-actions { display: flex; gap: 10px; padding: 16px 20px; }
 
-/* BUTTONS */
 .btn { flex: 1; padding: 13px; border-radius: 12px; font-family: ‘DM Sans’, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: none; text-align: center; }
 .btn:active { transform: scale(0.96); }
 .btn-primary { background: var(–green-dark); color: var(–text-beige); }
 .btn-secondary { background: var(–surface); color: var(–text-mid); border: 1px solid var(–border); }
 .btn-danger { background: rgba(180,50,50,0.1); color: #a03030; border: 1px solid rgba(180,50,50,0.2); }
 
-/* STATS */
 .stats-page { padding: 16px; }
 .stats-section { margin-bottom: 24px; }
 .stats-section-title { font-family: ‘Playfair Display’, serif; font-size: 16px; color: var(–green-dark); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(–border); }
@@ -159,7 +145,6 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 .month-bar { height: 100%; background: linear-gradient(90deg, var(–green-dark), var(–green-mid)); border-radius: 4px; transition: width 0.5s ease; }
 .month-count { font-size: 11px; color: var(–text-mid); width: 16px; text-align: right; flex-shrink: 0; }
 
-/* IO */
 .io-page { padding: 16px; }
 .io-section { background: var(–card); border: 1px solid var(–border); border-radius: var(–radius); padding: 18px; margin-bottom: 14px; }
 .io-section h3 { font-family: ‘Playfair Display’, serif; font-size: 16px; color: var(–green-dark); margin-bottom: 6px; }
@@ -168,7 +153,12 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 .file-label { display: block; padding: 13px; border-radius: 10px; border: 1px dashed var(–green-mid); color: var(–green-dark); text-align: center; font-size: 14px; cursor: pointer; transition: background 0.2s; font-weight: 500; }
 .file-label:active { background: rgba(45,90,45,0.08); }
 
-/* AI */
+/* COVER FETCH PROGRESS */
+.cover-progress { margin-top: 12px; display: none; }
+.cover-progress-bar-wrap { height: 8px; background: var(–surface); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+.cover-progress-bar { height: 100%; background: linear-gradient(90deg, var(–green-dark), var(–green-mid)); border-radius: 4px; transition: width 0.3s ease; width: 0%; }
+.cover-progress-label { font-size: 12px; color: var(–text-mid); text-align: center; }
+
 .ai-messages { max-height: 42vh; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; -webkit-overflow-scrolling: touch; }
 .ai-msg { max-width: 86%; padding: 10px 14px; border-radius: 16px; font-size: 14px; line-height: 1.55; }
 .ai-msg.user { background: var(–green-dark); color: var(–text-beige); align-self: flex-end; border-bottom-right-radius: 4px; }
@@ -182,11 +172,8 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 .ai-send { width: 42px; height: 42px; border-radius: 50%; background: var(–green-dark); color: var(–text-beige); border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 0.15s; }
 .ai-send:active { transform: scale(0.92); }
 
-/* TOAST */
 .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(–green-dark); color: var(–text-beige); padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 500; opacity: 0; transition: all 0.3s; z-index: 300; white-space: nowrap; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* SPINNER */
 .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid var(–border); border-top-color: var(–green-dark); border-radius: 50%; animation: spin 0.6s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 </style>
@@ -314,42 +301,60 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
       <div class="modal-close" onclick="closeModal('ioModal')">✕</div>
     </div>
     <div class="io-page">
-      <div class="io-section">
-        <h3>📤 Exporter</h3>
-        <p>Télécharge ta bibliothèque. Aucune donnée n'est envoyée sur Internet.</p>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-secondary" style="flex:1" onclick="exportJSON()">JSON</button>
-          <button class="btn btn-secondary" style="flex:1" onclick="exportCSV()">CSV</button>
-        </div>
-      </div>
-      <div class="io-section">
-        <h3>📥 Importer JSON</h3>
-        <p>Importe un fichier JSON exporté depuis cette app.</p>
-        <input type="file" class="file-input" id="impJSON" accept=".json" onchange="importJSON(event)">
-        <label class="file-label" for="impJSON">Choisir un fichier JSON</label>
-      </div>
-      <div class="io-section">
-        <h3>📥 Importer CSV Goodreads</h3>
-        <p>Exporte depuis Goodreads (Mes livres → Exporter), puis importe ici.</p>
-        <input type="file" class="file-input" id="impGR" accept=".csv" onchange="importGoodreads(event)">
-        <label class="file-label" for="impGR">Choisir un fichier CSV Goodreads</label>
-      </div>
-      <div class="io-section">
-        <h3>📥 Importer CSV personnalisé</h3>
-        <p>N'importe quel fichier CSV. Tu choisiras quelles colonnes correspondent à quoi.</p>
-        <input type="file" class="file-input" id="impCSV" accept=".csv" onchange="loadCustomCSV(event)">
-        <label class="file-label" for="impCSV">Choisir un fichier CSV</label>
-        <div id="csvMapping" style="display:none;margin-top:14px">
-          <p id="csvPreview" style="font-size:13px;color:var(--green-dark);font-weight:500;margin-bottom:10px"></p>
-          <div class="form-group"><label class="form-label">Colonne Titre *</label><select class="form-select" id="mapTitle"></select></div>
-          <div class="form-group"><label class="form-label">Colonne Auteur</label><select class="form-select" id="mapAuthor"><option value="">— aucune —</option></select></div>
-          <div class="form-group"><label class="form-label">Colonne Statut</label><select class="form-select" id="mapStatus"><option value="">— aucune —</option></select></div>
-          <div class="form-group"><label class="form-label">Colonne Note (/5)</label><select class="form-select" id="mapRating"><option value="">— aucune —</option></select></div>
-          <div class="form-group"><label class="form-label">Colonne Date de lecture</label><select class="form-select" id="mapDate"><option value="">— aucune —</option></select></div>
-          <button class="btn btn-primary" style="width:100%" onclick="importCustomConfirm()">Importer ces livres</button>
-        </div>
-      </div>
+
+```
+  <div class="io-section">
+    <h3>🖼 Couvertures manquantes</h3>
+    <p>Récupère automatiquement les couvertures de tous les livres qui n'en ont pas encore.</p>
+    <button class="btn btn-primary" style="width:100%" onclick="fetchAllCovers()">Récupérer les couvertures</button>
+    <div class="cover-progress" id="coverProgress">
+      <div class="cover-progress-bar-wrap"><div class="cover-progress-bar" id="coverBar"></div></div>
+      <div class="cover-progress-label" id="coverLabel"></div>
     </div>
+  </div>
+
+  <div class="io-section">
+    <h3>📤 Exporter</h3>
+    <p>Télécharge ta bibliothèque. Aucune donnée n'est envoyée sur Internet.</p>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-secondary" style="flex:1" onclick="exportJSON()">JSON</button>
+      <button class="btn btn-secondary" style="flex:1" onclick="exportCSV()">CSV</button>
+    </div>
+  </div>
+
+  <div class="io-section">
+    <h3>📥 Importer JSON</h3>
+    <p>Importe un fichier JSON exporté depuis cette app.</p>
+    <input type="file" class="file-input" id="impJSON" accept=".json" onchange="importJSON(event)">
+    <label class="file-label" for="impJSON">Choisir un fichier JSON</label>
+  </div>
+
+  <div class="io-section">
+    <h3>📥 Importer CSV Goodreads</h3>
+    <p>Exporte depuis Goodreads (Mes livres → Exporter), puis importe ici.</p>
+    <input type="file" class="file-input" id="impGR" accept=".csv" onchange="importGoodreads(event)">
+    <label class="file-label" for="impGR">Choisir un fichier CSV Goodreads</label>
+  </div>
+
+  <div class="io-section">
+    <h3>📥 Importer CSV personnalisé</h3>
+    <p>N'importe quel fichier CSV. Tu choisiras quelles colonnes correspondent à quoi.</p>
+    <input type="file" class="file-input" id="impCSV" accept=".csv" onchange="loadCustomCSV(event)">
+    <label class="file-label" for="impCSV">Choisir un fichier CSV</label>
+    <div id="csvMapping" style="display:none;margin-top:14px">
+      <p id="csvPreview" style="font-size:13px;color:var(--green-dark);font-weight:500;margin-bottom:10px"></p>
+      <div class="form-group"><label class="form-label">Colonne Titre *</label><select class="form-select" id="mapTitle"></select></div>
+      <div class="form-group"><label class="form-label">Colonne Auteur</label><select class="form-select" id="mapAuthor"><option value="">— aucune —</option></select></div>
+      <div class="form-group"><label class="form-label">Colonne Statut</label><select class="form-select" id="mapStatus"><option value="">— aucune —</option></select></div>
+      <div class="form-group"><label class="form-label">Colonne Note (/5)</label><select class="form-select" id="mapRating"><option value="">— aucune —</option></select></div>
+      <div class="form-group"><label class="form-label">Colonne Date de lecture</label><select class="form-select" id="mapDate"><option value="">— aucune —</option></select></div>
+      <button class="btn btn-primary" style="width:100%" onclick="importCustomConfirm()">Importer ces livres</button>
+    </div>
+  </div>
+
+</div>
+```
+
   </div>
 </div>
 
@@ -364,7 +369,7 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
     </div>
     <div class="ai-context" id="aiContext"></div>
     <div class="ai-messages" id="aiMessages">
-      <div class="ai-msg assistant">Bonjour ! Je connais ta bibliothèque. Tu peux me demander de modifier l'app (couleurs, fonctionnalités…) ou poser des questions sur tes lectures.</div>
+      <div class="ai-msg assistant">Bonjour ! Je connais ta bibliothèque. Tu peux me demander de modifier l'app ou poser des questions sur tes lectures.</div>
     </div>
     <div class="ai-input-row">
       <input class="ai-input" id="aiInput" type="text" placeholder="Demande une modification…" onkeydown="if(event.key==='Enter')sendAI()">
@@ -376,7 +381,6 @@ body { background: var(--bg); color: var(--text-dark); font-family: 'DM Sans', s
 <div class="toast" id="toast"></div>
 
 <script>
-// ── DATA ──
 let books = JSON.parse(localStorage.getItem('ml_books') || '[]');
 let currentFilter = 'tous';
 let currentRating = 0;
@@ -388,16 +392,15 @@ function save() { localStorage.setItem('ml_books', JSON.stringify(books)); }
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
 function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-// ── RENDER ──
 function render() { renderStatsBar(); renderGrid(); }
 
 function renderStatsBar() {
-  const lu = books.filter(b=>b.status==='lu').length;
-  const ec = books.filter(b=>b.status==='encours').length;
-  const al = books.filter(b=>b.status==='alire').length;
-  const rated = books.filter(b=>b.rating>0);
-  const avg = rated.length ? (rated.reduce((s,b)=>s+b.rating,0)/rated.length).toFixed(1) : '—';
-  document.getElementById('statsBar').innerHTML = `
+  const lu=books.filter(b=>b.status==='lu').length;
+  const ec=books.filter(b=>b.status==='encours').length;
+  const al=books.filter(b=>b.status==='alire').length;
+  const rated=books.filter(b=>b.rating>0);
+  const avg=rated.length?(rated.reduce((s,b)=>s+b.rating,0)/rated.length).toFixed(1):'—';
+  document.getElementById('statsBar').innerHTML=`
     <div class="stat-item"><span class="stat-num">${books.length}</span><span class="stat-label">Total</span></div>
     <div class="stat-item"><span class="stat-num">${lu}</span><span class="stat-label">Lus</span></div>
     <div class="stat-item"><span class="stat-num">${ec}</span><span class="stat-label">En cours</span></div>
@@ -407,25 +410,25 @@ function renderStatsBar() {
 }
 
 function getFiltered() {
-  const q = (document.getElementById('filterInput')?.value||'').toLowerCase();
-  return books.filter(b => {
-    const matchTab = currentFilter==='tous' || b.status===currentFilter;
-    const matchQ = !q || b.title.toLowerCase().includes(q) || (b.author||'').toLowerCase().includes(q);
-    return matchTab && matchQ;
+  const q=(document.getElementById('filterInput')?.value||'').toLowerCase();
+  return books.filter(b=>{
+    const matchTab=currentFilter==='tous'||b.status===currentFilter;
+    const matchQ=!q||b.title.toLowerCase().includes(q)||(b.author||'').toLowerCase().includes(q);
+    return matchTab&&matchQ;
   });
 }
 
 function renderGrid() {
-  const filtered = getFiltered();
-  const grid = document.getElementById('bookGrid');
-  if (!filtered.length) {
-    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">📚</div><h3>${books.length?'Aucun résultat':'Ta bibliothèque est vide'}</h3><p>${books.length?'Essaie un autre filtre.':'Appuie sur + pour ajouter ton premier livre.'}</p></div>`;
+  const filtered=getFiltered();
+  const grid=document.getElementById('bookGrid');
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty-state"><div class="empty-icon">📚</div><h3>${books.length?'Aucun résultat':'Ta bibliothèque est vide'}</h3><p>${books.length?'Essaie un autre filtre.':'Appuie sur + pour ajouter ton premier livre.'}</p></div>`;
     return;
   }
-  grid.innerHTML = filtered.map(b => `
+  grid.innerHTML=filtered.map(b=>`
     <div class="book-card" onclick="openDetail('${b.id}')">
       <div class="status-dot ${b.status}"></div>
-      ${b.cover ? `<img class="book-cover" src="${b.cover}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+      ${b.cover?`<img class="book-cover" src="${b.cover}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:''}
       <div class="book-cover-placeholder" ${b.cover?'style="display:none"':''}>📖</div>
       <div class="book-info">
         <div class="book-title">${esc(b.title)}</div>
@@ -436,57 +439,54 @@ function renderGrid() {
   `).join('');
 }
 
-// ── TABS ──
 function filterTab(tab) {
-  currentFilter = tab;
+  currentFilter=tab;
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['tous','encours','lu','alire'][i]===tab));
   renderGrid();
 }
 
-// ── MODALS ──
-function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
-function closeOnOverlay(e,id) { if(e.target===document.getElementById(id)) closeModal(id); }
+function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+function closeOnOverlay(e,id){if(e.target===document.getElementById(id))closeModal(id);}
 
-// ── ADD/EDIT ──
 function openAddModal(pre) {
-  document.getElementById('modalTitle').textContent = 'Ajouter un livre';
-  document.getElementById('onlineSearch').value = '';
-  document.getElementById('searchResults').className = 'search-results';
-  document.getElementById('inputTitle').value = pre?.title||'';
-  document.getElementById('inputAuthor').value = pre?.author||'';
-  document.getElementById('inputStatus').value = 'alire';
-  document.getElementById('inputDate').value = '';
-  document.getElementById('inputNote').value = '';
-  document.getElementById('inputCover').value = pre?.cover||'';
-  document.getElementById('editingId').value = '';
-  currentRating=0; updateStars(0);
+  document.getElementById('modalTitle').textContent='Ajouter un livre';
+  document.getElementById('onlineSearch').value='';
+  document.getElementById('searchResults').className='search-results';
+  document.getElementById('inputTitle').value=pre?.title||'';
+  document.getElementById('inputAuthor').value=pre?.author||'';
+  document.getElementById('inputStatus').value='alire';
+  document.getElementById('inputDate').value='';
+  document.getElementById('inputNote').value='';
+  document.getElementById('inputCover').value=pre?.cover||'';
+  document.getElementById('editingId').value='';
+  currentRating=0;updateStars(0);
   openModal('addModal');
 }
 
 function openEditModal(id) {
-  const b = books.find(x=>x.id===id); if(!b) return;
+  const b=books.find(x=>x.id===id);if(!b)return;
   closeModal('detailModal');
-  document.getElementById('modalTitle').textContent = 'Modifier';
-  document.getElementById('onlineSearch').value = '';
-  document.getElementById('searchResults').className = 'search-results';
-  document.getElementById('inputTitle').value = b.title;
-  document.getElementById('inputAuthor').value = b.author||'';
-  document.getElementById('inputStatus').value = b.status;
-  document.getElementById('inputDate').value = b.date||'';
-  document.getElementById('inputNote').value = b.note||'';
-  document.getElementById('inputCover').value = b.cover||'';
-  document.getElementById('editingId').value = id;
-  currentRating=b.rating||0; updateStars(currentRating);
+  document.getElementById('modalTitle').textContent='Modifier';
+  document.getElementById('onlineSearch').value='';
+  document.getElementById('searchResults').className='search-results';
+  document.getElementById('inputTitle').value=b.title;
+  document.getElementById('inputAuthor').value=b.author||'';
+  document.getElementById('inputStatus').value=b.status;
+  document.getElementById('inputDate').value=b.date||'';
+  document.getElementById('inputNote').value=b.note||'';
+  document.getElementById('inputCover').value=b.cover||'';
+  document.getElementById('editingId').value=id;
+  currentRating=b.rating||0;updateStars(currentRating);
   openModal('addModal');
 }
 
 function saveBook() {
-  const title = document.getElementById('inputTitle').value.trim();
+  const title=document.getElementById('inputTitle').value.trim();
   if(!title){showToast('Le titre est requis');return;}
-  const id = document.getElementById('editingId').value;
-  const book = {
-    id:id||uid(), title,
+  const id=document.getElementById('editingId').value;
+  const book={
+    id:id||uid(),title,
     author:document.getElementById('inputAuthor').value.trim(),
     status:document.getElementById('inputStatus').value,
     date:document.getElementById('inputDate').value,
@@ -497,17 +497,15 @@ function saveBook() {
   };
   if(id){const i=books.findIndex(b=>b.id===id);if(i>=0)books[i]=book;}
   else books.unshift(book);
-  save(); closeModal('addModal'); render();
+  save();closeModal('addModal');render();
   showToast(id?'Livre modifié ✓':'Livre ajouté ✓');
 }
 
-// ── STARS ──
 function setRating(v){currentRating=v;updateStars(v);}
 function updateStars(v){document.querySelectorAll('#starRating .star-btn').forEach((b,i)=>b.classList.toggle('active',i<v));}
 
-// ── DETAIL ──
 function openDetail(id) {
-  const b=books.find(x=>x.id===id); if(!b) return;
+  const b=books.find(x=>x.id===id);if(!b)return;
   const labels={lu:'Lu ✓',alire:'À lire',encours:'En cours'};
   document.getElementById('detailContent').innerHTML=`
     <div class="modal-handle"></div>
@@ -535,20 +533,19 @@ function openDetail(id) {
 }
 
 function deleteBook(id) {
-  if(!confirm('Supprimer ce livre ?')) return;
+  if(!confirm('Supprimer ce livre ?'))return;
   books=books.filter(b=>b.id!==id);
-  save(); closeModal('detailModal'); render();
+  save();closeModal('detailModal');render();
   showToast('Livre supprimé');
 }
 
 function fmtDate(d) {
-  if(!d) return '';
-  const [y,m,day]=d.split('-');
+  if(!d)return'';
+  const[y,m,day]=d.split('-');
   const mo=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
-  return `${parseInt(day)} ${mo[parseInt(m)-1]} ${y}`;
+  return`${parseInt(day)} ${mo[parseInt(m)-1]} ${y}`;
 }
 
-// ── ONLINE SEARCH ──
 function debounceSearch() {
   clearTimeout(searchTimer);
   const q=document.getElementById('onlineSearch').value.trim();
@@ -558,7 +555,7 @@ function debounceSearch() {
 }
 
 async function doSearch(q) {
-  try {
+  try{
     const res=await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(q)}&limit=6&fields=key,title,author_name,cover_i`);
     const data=await res.json();
     document.getElementById('searchSpinner').style.display='none';
@@ -573,13 +570,13 @@ async function doSearch(q) {
       const full=r.cover_i?`https://covers.openlibrary.org/b/id/${r.cover_i}-M.jpg`:'';
       const author=(r.author_name||[])[0]||'';
       const d=JSON.stringify({title:r.title,author,cover:full}).replace(/"/g,'&quot;');
-      return `<div class="search-result-item" onclick="selectResult(${d})">
+      return`<div class="search-result-item" onclick="selectResult(${d})">
         ${cover?`<img class="result-cover" src="${cover}" loading="lazy" alt="">`:'<div class="result-cover" style="display:flex;align-items:center;justify-content:center;font-size:18px">📖</div>'}
         <div class="result-info"><div class="result-title">${esc(r.title)}</div><div class="result-author">${esc(author)}</div></div>
       </div>`;
     }).join('');
     document.getElementById('searchResults').className='search-results visible';
-  } catch {
+  }catch{
     document.getElementById('searchSpinner').style.display='none';
     document.getElementById('searchResults').innerHTML='<div class="searching-indicator">Erreur de connexion</div>';
     document.getElementById('searchResults').className='search-results visible';
@@ -594,7 +591,44 @@ function selectResult(data) {
   document.getElementById('searchResults').className='search-results';
 }
 
-// ── STATS ──
+// ── FETCH ALL COVERS ──
+async function fetchAllCovers() {
+  const missing = books.filter(b => !b.cover);
+  if (!missing.length) { showToast('Toutes les couvertures sont déjà là ✓'); return; }
+
+  const prog = document.getElementById('coverProgress');
+  const bar = document.getElementById('coverBar');
+  const label = document.getElementById('coverLabel');
+  prog.style.display = 'block';
+
+  let done = 0, found = 0;
+
+  for (const book of missing) {
+    label.textContent = `${done + 1} / ${missing.length} — ${book.title.slice(0, 30)}…`;
+    try {
+      const q = encodeURIComponent(`${book.title} ${book.author||''}`);
+      const res = await fetch(`https://openlibrary.org/search.json?q=${q}&limit=1&fields=cover_i`);
+      const data = await res.json();
+      const coverId = data.docs?.[0]?.cover_i;
+      if (coverId) {
+        const idx = books.findIndex(b => b.id === book.id);
+        if (idx >= 0) {
+          books[idx].cover = `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`;
+          found++;
+        }
+      }
+    } catch { /* skip */ }
+    done++;
+    bar.style.width = `${Math.round(done / missing.length * 100)}%`;
+    // small delay to avoid rate limiting
+    await new Promise(r => setTimeout(r, 300));
+  }
+
+  save(); render();
+  label.textContent = `Terminé — ${found} couverture(s) trouvée(s) sur ${missing.length}`;
+  showToast(`${found} couvertures récupérées ✓`);
+}
+
 function showStats() {
   const lu=books.filter(b=>b.status==='lu');
   const rated=lu.filter(b=>b.rating>0);
@@ -628,12 +662,9 @@ function showStats() {
   openModal('statsModal');
 }
 
-// ── IO ──
-function showIO() { openModal('ioModal'); }
-
+function showIO(){openModal('ioModal');}
 function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);}
 function today(){return new Date().toISOString().slice(0,10);}
-
 function exportJSON(){dl(new Blob([JSON.stringify(books,null,2)],{type:'application/json'}),`mes-lectures-${today()}.json`);showToast('Export JSON ✓');}
 function exportCSV(){
   const h=['id','title','author','status','date','rating','note','cover','addedAt'];
@@ -699,7 +730,7 @@ function loadCustomCSV(e){
     document.getElementById('mapRating').innerHTML=none+opts;
     document.getElementById('mapDate').innerHTML=none+opts;
     const low=csvHeaders.map(h=>h.toLowerCase());
-    const best=kws=>{for(const k of kws){const i=low.findIndex(h=>h.includes(k));if(i>=0)return String(i);}return '';};
+    const best=kws=>{for(const k of kws){const i=low.findIndex(h=>h.includes(k));if(i>=0)return String(i);}return'';};
     document.getElementById('mapTitle').value=best(['title','titre']);
     document.getElementById('mapAuthor').value=best(['author','auteur']);
     document.getElementById('mapStatus').value=best(['shelf','status','statut']);
@@ -748,14 +779,12 @@ function csvLine(line){
   res.push(cur);return res;
 }
 
-// ── TOAST ──
 function showToast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2400);
 }
 
-// ── AI ──
 function openAI(){
   const lu=books.filter(b=>b.status==='lu').length;
   const al=books.filter(b=>b.status==='alire').length;
@@ -781,10 +810,10 @@ async function sendAI(){
   input.value='';
   addMsg('user',txt);
   const thinking=addMsg('thinking','…');
-  const sys=`Tu es l'assistant intégré d'une app web de suivi de lectures personnelles (HTML local, 100% privé, aucune donnée envoyée).
+  const sys=`Tu es l'assistant intégré d'une app web de suivi de lectures personnelles (HTML local, 100% privé).
 Bibliothèque : ${books.length} livres, ${books.filter(b=>b.status==='lu').length} lus, ${books.filter(b=>b.status==='encours').length} en cours, ${books.filter(b=>b.status==='alire').length} à lire.
 Titres (30 premiers) : ${books.slice(0,30).map(b=>b.title).join(', ')}.
-Réponds en français, sois concis. Si on te demande une modification de l'app, explique brièvement puis donne le code entre balises <code> et </code>.`;
+Réponds en français, sois concis.`;
   aiHistory.push({role:'user',content:txt});
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
@@ -804,7 +833,6 @@ Réponds en français, sois concis. Si on te demande une modification de l'app, 
   }
 }
 
-// ── INIT ──
 render();
 </script>
 
