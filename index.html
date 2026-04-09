@@ -27,7 +27,7 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 .sn{font-family:'Playfair Display',serif;font-size:20px;color:var(--gd);display:block;line-height:1.1}
 .sl{font-size:11px;color:var(--tm);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
 .main{padding:16px 16px 110px}
-.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.toolbar{display:flex;align-items:center;gap:8px;margin-bottom:16px}
 .sw{position:relative;flex:1}
 .si2{width:100%;padding:12px 16px 12px 40px;border-radius:var(--r);border:1px solid var(--border);background:var(--surface);color:var(--td);font-family:'DM Sans',sans-serif;font-size:15px;outline:none}
 .si2::placeholder{color:var(--tm)}
@@ -111,7 +111,7 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 .rt2{font-size:13px;font-weight:500;color:var(--td);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rau{font-size:11px;color:var(--tm);margin-top:2px}
 .sind{padding:16px;text-align:center;color:var(--tm);font-size:13px}
-.dcw{display:flex;justify-content:center;padding:20px 0 16px}
+.dcw{display:flex;justify-content:center;padding:20px 0 8px}
 .dc{width:100px;height:150px;object-fit:cover;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.2)}
 .dph{width:100px;height:150px;border-radius:8px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 8px 32px rgba(0,0,0,.15)}
 .dtit{font-family:'Playfair Display',serif;font-size:20px;text-align:center;color:var(--td);margin-bottom:4px;line-height:1.3;padding:0 20px}
@@ -123,8 +123,9 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 .dbg.encours{background:rgba(139,94,42,.12);color:#7a4a1a;border-color:rgba(139,94,42,.3)}
 .dst{display:flex;gap:2px;justify-content:center;margin-bottom:12px}
 .dst .star{font-size:18px}
-.dext{text-align:center;font-size:13px;color:var(--tm);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 20px}
+.dext{text-align:center;font-size:13px;color:var(--tm);margin-bottom:4px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 20px}
 .rfbt{font-size:12px;color:var(--gm);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.covact{text-align:center;margin-bottom:16px}
 .dsec{padding:16px 20px;border-top:1px solid var(--border)}
 .dstit{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gm);margin-bottom:8px;font-weight:500}
 .dnote{font-size:14px;line-height:1.6;color:var(--tm);font-style:italic}
@@ -203,9 +204,10 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 <div class="main">
   <div class="toolbar">
     <div class="sw"><span class="sic">🔍</span><input class="si2" type="search" placeholder="Filtrer…" id="fi" oninput="rb()"></div>
-    <div class="vbt active" id="bgr" onclick="sv('grid')">⊞</div>
-    <div class="vbt" id="bls" onclick="sv('list')">☰</div>
-    <div class="vbt" id="bsel" onclick="tSel()">✓</div>
+    <div class="vbt active" id="bgr" onclick="sv('grid')" title="Grille">⊞</div>
+    <div class="vbt" id="bls" onclick="sv('list')" title="Liste">☰</div>
+    <div class="vbt active" id="bcov" onclick="tCov()" title="Couvertures en liste">🖼</div>
+    <div class="vbt" id="bsel" onclick="tSel()" title="Sélectionner">✓</div>
   </div>
   <div id="bc"></div>
 </div>
@@ -224,8 +226,10 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
     <div class="mhdr"><span class="mtit" id="mtit">Ajouter</span><div class="mcl" onclick="cM('addM')">✕</div></div>
     <div class="mbdy">
       <div class="fg"><label class="fl">Rechercher en ligne</label>
-        <div style="position:relative"><input class="fi" type="text" id="os" placeholder="Titre ou auteur…" oninput="dbs()" autocomplete="off">
-        <div id="ssp" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);display:none"><div class="spin"></div></div></div>
+        <div style="position:relative">
+          <input class="fi" type="text" id="os" placeholder="Titre ou auteur…" oninput="dbs()" autocomplete="off">
+          <div id="ssp" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);display:none"><div class="spin"></div></div>
+        </div>
         <div class="res" id="rres"></div>
       </div>
       <div class="fg"><label class="fl">Titre *</label><input class="fi" type="text" id="it" placeholder="Titre du livre"></div>
@@ -241,12 +245,20 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
         </div>
       </div>
       <div class="fg"><label class="fl">Statut</label>
-        <select class="fsel" id="ist"><option value="alire">À lire</option><option value="encours">En cours</option><option value="lu">Lu</option></select>
+        <select class="fsel" id="ist">
+          <option value="alire">À lire</option>
+          <option value="encours">En cours</option>
+          <option value="lu">Lu</option>
+        </select>
       </div>
       <div class="fg"><label class="fl">Date de lecture</label><input class="fi" type="date" id="idt"></div>
       <div class="fg"><label class="fl">Note</label>
         <div class="sr" id="srr">
-          <button class="srb" onclick="sR(1)">★</button><button class="srb" onclick="sR(2)">★</button><button class="srb" onclick="sR(3)">★</button><button class="srb" onclick="sR(4)">★</button><button class="srb" onclick="sR(5)">★</button>
+          <button class="srb" onclick="sR(1)">★</button>
+          <button class="srb" onclick="sR(2)">★</button>
+          <button class="srb" onclick="sR(3)">★</button>
+          <button class="srb" onclick="sR(4)">★</button>
+          <button class="srb" onclick="sR(5)">★</button>
         </div>
       </div>
       <div class="fg"><label class="fl">Commentaire</label><textarea class="fta" id="ino" placeholder="Tes impressions…"></textarea></div>
@@ -266,15 +278,19 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 <!-- STATS -->
 
 <div class="mo" id="stM" onclick="cOv(event,'stM')">
-  <div class="modal"><div class="mh2"></div><div class="mhdr"><span class="mtit">Statistiques</span><div class="mcl" onclick="cM('stM')">✕</div></div>
-  <div class="stats-page" id="stc"></div></div>
+  <div class="modal"><div class="mh2"></div>
+    <div class="mhdr"><span class="mtit">Statistiques</span><div class="mcl" onclick="cM('stM')">✕</div></div>
+    <div class="stats-page" id="stc"></div>
+  </div>
 </div>
 
 <!-- LISTS -->
 
 <div class="mo" id="lstM" onclick="cOv(event,'lstM')">
-  <div class="modal"><div class="mh2"></div><div class="mhdr"><span class="mtit">Mes listes</span><div class="mcl" onclick="cM('lstM')">✕</div></div>
-  <div class="lpage" id="lpc2"></div></div>
+  <div class="modal"><div class="mh2"></div>
+    <div class="mhdr"><span class="mtit">Mes listes</span><div class="mcl" onclick="cM('lstM')">✕</div></div>
+    <div class="lpage" id="lpc2"></div>
+  </div>
 </div>
 
 <!-- LIST DETAIL -->
@@ -284,61 +300,82 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 <!-- NEW LIST -->
 
 <div class="mo" id="nlM" onclick="cOv(event,'nlM')">
-  <div class="modal"><div class="mh2"></div><div class="mhdr"><span class="mtit">Nouvelle liste</span><div class="mcl" onclick="cM('nlM')">✕</div></div>
-  <div class="mbdy">
-    <div class="fg"><label class="fl">Nom</label><input class="fi" type="text" id="nln" placeholder="Ex: Coups de cœur…"></div>
-    <div style="display:flex;gap:10px"><button class="btn bs" onclick="cM('nlM')">Annuler</button><button class="btn bp" onclick="crtL()">Créer</button></div>
-  </div></div>
+  <div class="modal"><div class="mh2"></div>
+    <div class="mhdr"><span class="mtit">Nouvelle liste</span><div class="mcl" onclick="cM('nlM')">✕</div></div>
+    <div class="mbdy">
+      <div class="fg"><label class="fl">Nom</label><input class="fi" type="text" id="nln" placeholder="Ex: Coups de cœur…"></div>
+      <div style="display:flex;gap:10px">
+        <button class="btn bs" onclick="cM('nlM')">Annuler</button>
+        <button class="btn bp" onclick="crtL()">Créer</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ADD TO LIST -->
 
 <div class="mo" id="atlM" onclick="cOv(event,'atlM')">
-  <div class="modal"><div class="mh2"></div><div class="mhdr"><span class="mtit">Ajouter à une liste</span><div class="mcl" onclick="cM('atlM')">✕</div></div>
-  <div class="mbdy" id="atlc"></div></div>
+  <div class="modal"><div class="mh2"></div>
+    <div class="mhdr"><span class="mtit">Ajouter à une liste</span><div class="mcl" onclick="cM('atlM')">✕</div></div>
+    <div class="mbdy" id="atlc"></div>
+  </div>
 </div>
 
 <!-- IO -->
 
 <div class="mo" id="ioM" onclick="cOv(event,'ioM')">
-  <div class="modal"><div class="mh2"></div><div class="mhdr"><span class="mtit">Import / Export</span><div class="mcl" onclick="cM('ioM')">✕</div></div>
-  <div class="iopage">
-    <div class="ios"><h3>🖼 Couvertures manquantes</h3><p>Récupère automatiquement les couvertures des livres qui n'en ont pas.</p>
-      <button class="btn bp" style="width:100%" onclick="fetchC()">Récupérer les couvertures</button>
-      <div class="cp2" id="cpp"><div class="cpbw"><div class="cpb" id="cpb2"></div></div><div class="cpl" id="cpl2"></div></div>
-    </div>
-    <div class="ios"><h3>📖 Résumés manquants</h3><p>Récupère automatiquement les résumés des livres qui n'en ont pas encore via Google Books.</p>
-      <button class="btn bp" style="width:100%" onclick="fetchSums()">Récupérer les résumés</button>
-      <div class="cp2" id="sump"><div class="cpbw"><div class="cpb" id="sumb"></div></div><div class="cpl" id="suml"></div></div>
-    </div>
-    <div class="ios"><h3>📤 Exporter</h3><p>Aucune donnée envoyée sur Internet.</p>
-      <div style="display:flex;gap:8px">
-        <button class="btn bs" style="flex:1;color:var(--beige);border-color:rgba(245,238,220,.3)" onclick="exJSON()">JSON</button>
-        <button class="btn bs" style="flex:1;color:var(--beige);border-color:rgba(245,238,220,.3)" onclick="exCSV()">CSV</button>
+  <div class="modal"><div class="mh2"></div>
+    <div class="mhdr"><span class="mtit">Import / Export</span><div class="mcl" onclick="cM('ioM')">✕</div></div>
+    <div class="iopage">
+      <div class="ios">
+        <h3>🖼 Couvertures manquantes</h3>
+        <p>Récupère automatiquement les couvertures des livres qui n'en ont pas.</p>
+        <button class="btn bp" style="width:100%" onclick="fetchC()">Récupérer les couvertures</button>
+        <div class="cp2" id="cpp"><div class="cpbw"><div class="cpb" id="cpb2"></div></div><div class="cpl" id="cpl2"></div></div>
+      </div>
+      <div class="ios">
+        <h3>📖 Résumés manquants</h3>
+        <p>Récupère automatiquement les résumés via Google Books.</p>
+        <button class="btn bp" style="width:100%" onclick="fetchSums()">Récupérer les résumés</button>
+        <div class="cp2" id="sump"><div class="cpbw"><div class="cpb" id="sumb"></div></div><div class="cpl" id="suml"></div></div>
+      </div>
+      <div class="ios">
+        <h3>📤 Exporter</h3>
+        <p>Aucune donnée envoyée sur Internet.</p>
+        <div style="display:flex;gap:8px">
+          <button class="btn bs" style="flex:1;color:var(--beige);border-color:rgba(245,238,220,.3)" onclick="exJSON()">JSON</button>
+          <button class="btn bs" style="flex:1;color:var(--beige);border-color:rgba(245,238,220,.3)" onclick="exCSV()">CSV</button>
+        </div>
+      </div>
+      <div class="ios">
+        <h3>📥 Importer JSON</h3>
+        <p>Fichier JSON exporté depuis cette app.</p>
+        <input type="file" class="hfi" id="ijson" accept=".json" onchange="impJ(event)">
+        <label class="hfl" for="ijson">Choisir un fichier JSON</label>
+      </div>
+      <div class="ios">
+        <h3>📥 Importer CSV Goodreads</h3>
+        <p>Exporte depuis Goodreads puis importe ici.</p>
+        <input type="file" class="hfi" id="igr" accept=".csv" onchange="impGR(event)">
+        <label class="hfl" for="igr">Choisir un fichier CSV Goodreads</label>
+      </div>
+      <div class="ios">
+        <h3>📥 Importer CSV personnalisé</h3>
+        <p>N'importe quel CSV — tu choisiras les colonnes.</p>
+        <input type="file" class="hfi" id="icsv" accept=".csv" onchange="ldCSV(event)">
+        <label class="hfl" for="icsv">Choisir un fichier CSV</label>
+        <div id="csvm" style="display:none;margin-top:14px">
+          <p id="csvp" style="font-size:13px;color:var(--beige);font-weight:500;margin-bottom:10px"></p>
+          <div class="fg"><label class="fl" style="color:var(--beige)">Titre *</label><select class="fsel" id="mT"></select></div>
+          <div class="fg"><label class="fl" style="color:var(--beige)">Auteur</label><select class="fsel" id="mA"><option value="">— aucune —</option></select></div>
+          <div class="fg"><label class="fl" style="color:var(--beige)">Statut</label><select class="fsel" id="mS"><option value="">— aucune —</option></select></div>
+          <div class="fg"><label class="fl" style="color:var(--beige)">Note</label><select class="fsel" id="mR"><option value="">— aucune —</option></select></div>
+          <div class="fg"><label class="fl" style="color:var(--beige)">Date</label><select class="fsel" id="mD"><option value="">— aucune —</option></select></div>
+          <button class="btn bp" style="width:100%" onclick="impCC()">Importer</button>
+        </div>
       </div>
     </div>
-    <div class="ios"><h3>📥 Importer JSON</h3><p>Fichier JSON exporté depuis cette app.</p>
-      <input type="file" class="hfi" id="ijson" accept=".json" onchange="impJ(event)">
-      <label class="hfl" for="ijson">Choisir un fichier JSON</label>
-    </div>
-    <div class="ios"><h3>📥 Importer CSV Goodreads</h3><p>Exporte depuis Goodreads puis importe ici.</p>
-      <input type="file" class="hfi" id="igr" accept=".csv" onchange="impGR(event)">
-      <label class="hfl" for="igr">Choisir un fichier CSV Goodreads</label>
-    </div>
-    <div class="ios"><h3>📥 Importer CSV personnalisé</h3><p>N'importe quel CSV — tu choisiras les colonnes.</p>
-      <input type="file" class="hfi" id="icsv" accept=".csv" onchange="ldCSV(event)">
-      <label class="hfl" for="icsv">Choisir un fichier CSV</label>
-      <div id="csvm" style="display:none;margin-top:14px">
-        <p id="csvp" style="font-size:13px;color:var(--beige);font-weight:500;margin-bottom:10px"></p>
-        <div class="fg"><label class="fl" style="color:var(--beige)">Titre *</label><select class="fsel" id="mT"></select></div>
-        <div class="fg"><label class="fl" style="color:var(--beige)">Auteur</label><select class="fsel" id="mA"><option value="">— aucune —</option></select></div>
-        <div class="fg"><label class="fl" style="color:var(--beige)">Statut</label><select class="fsel" id="mS"><option value="">— aucune —</option></select></div>
-        <div class="fg"><label class="fl" style="color:var(--beige)">Note</label><select class="fsel" id="mR"><option value="">— aucune —</option></select></div>
-        <div class="fg"><label class="fl" style="color:var(--beige)">Date</label><select class="fsel" id="mD"><option value="">— aucune —</option></select></div>
-        <button class="btn bp" style="width:100%" onclick="impCC()">Importer</button>
-      </div>
-    </div>
-  </div></div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -346,7 +383,7 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 <script>
 let books=JSON.parse(localStorage.getItem('ml_books')||'[]');
 let lists=JSON.parse(localStorage.getItem('ml_lists')||'[]');
-let cFilter='tous',cRating=0,cView='grid',selMode=false;
+let cFilter='tous',cRating=0,cView='grid',selMode=false,showListCovers=true;
 let selIds=new Set(),sTimer=null,csvR=[],csvH=[];
 
 function save(){localStorage.setItem('ml_books',JSON.stringify(books))}
@@ -357,16 +394,24 @@ function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace
 function render(){rSbar();rb()}
 
 function rSbar(){
-  const lu=books.filter(b=>b.status==='lu').length,ec=books.filter(b=>b.status==='encours').length,al=books.filter(b=>b.status==='alire').length;
-  const rt=books.filter(b=>b.rating>0),avg=rt.length?(rt.reduce((s,b)=>s+b.rating,0)/rt.length).toFixed(1):'—';
-  document.getElementById('sbar').innerHTML=`<div class="si"><span class="sn">${books.length}</span><span class="sl">Total</span></div><div class="si"><span class="sn">${lu}</span><span class="sl">Lus</span></div><div class="si"><span class="sn">${ec}</span><span class="sl">En cours</span></div><div class="si"><span class="sn">${al}</span><span class="sl">À lire</span></div><div class="si"><span class="sn">${avg}</span><span class="sl">Moy. ★</span></div>`;
+  const lu=books.filter(b=>b.status==='lu').length;
+  const ec=books.filter(b=>b.status==='encours').length;
+  const al=books.filter(b=>b.status==='alire').length;
+  const rt=books.filter(b=>b.rating>0);
+  const avg=rt.length?(rt.reduce((s,b)=>s+b.rating,0)/rt.length).toFixed(1):'—';
+  document.getElementById('sbar').innerHTML=
+    '<div class="si"><span class="sn">'+books.length+'</span><span class="sl">Total</span></div>'+
+    '<div class="si"><span class="sn">'+lu+'</span><span class="sl">Lus</span></div>'+
+    '<div class="si"><span class="sn">'+ec+'</span><span class="sl">En cours</span></div>'+
+    '<div class="si"><span class="sn">'+al+'</span><span class="sl">À lire</span></div>'+
+    '<div class="si"><span class="sn">'+avg+'</span><span class="sl">Moy. ★</span></div>';
 }
 
 function gFilt(){
-  const q=(document.getElementById('fi')?.value||'').toLowerCase();
-  return books.filter(b=>{
-    const mt=cFilter==='tous'||b.status===cFilter;
-    const mq=!q||b.title.toLowerCase().includes(q)||(b.author||'').toLowerCase().includes(q);
+  const q=(document.getElementById('fi')?document.getElementById('fi').value:'').toLowerCase();
+  return books.filter(function(b){
+    var mt=cFilter==='tous'||b.status===cFilter;
+    var mq=!q||b.title.toLowerCase().indexOf(q)>=0||(b.author||'').toLowerCase().indexOf(q)>=0;
     return mt&&mq;
   });
 }
@@ -378,31 +423,79 @@ function sv(v){
   rb();
 }
 
-function rb(){cView==='grid'?rGrid():rList()}
-
-function cHTML(b,cls,phcls,sz){
-  if(b.cover)return`<img class="${cls}" src="${esc(b.cover)}" alt="" loading="lazy" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><div class="${phcls}" style="display:none;font-size:${sz}">📖</div>`;
-  return`<div class="${phcls}" style="font-size:${sz}">📖</div>`;
+function tCov(){
+  showListCovers=!showListCovers;
+  document.getElementById('bcov').classList.toggle('active',showListCovers);
+  if(cView==='list')rb();
 }
 
-function strs(r,sz){return[1,2,3,4,5].map(i=>`<span class="star ${i<=r?'f':''}" style="font-size:${sz}px">★</span>`).join('')}
+function rb(){if(cView==='grid')rGrid();else rList()}
+
+function covH(b,cls,phcls,sz){
+  if(b.cover){
+    return '<img class="'+cls+'" src="'+esc(b.cover)+'" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'+
+           '<div class="'+phcls+'" style="display:none;font-size:'+sz+'">📖</div>';
+  }
+  return '<div class="'+phcls+'" style="font-size:'+sz+'">📖</div>';
+}
+
+function strs(r,sz){
+  var s='';
+  for(var i=1;i<=5;i++) s+='<span class="star'+(i<=r?' f':'')+'" style="font-size:'+sz+'px">★</span>';
+  return s;
+}
 
 function rGrid(){
-  const f=gFilt(),c=document.getElementById('bc');
-  if(!f.length){c.innerHTML=`<div class="book-grid"><div class="empty"><div class="empty-ic">📚</div><h3>${books.length?'Aucun résultat':'Bibliothèque vide'}</h3><p>${books.length?'Essaie un autre filtre.':'Appuie sur + pour commencer.'}</p></div></div>`;return}
-  c.innerHTML=`<div class="book-grid ${selMode?'selmode':''}">${f.map(b=>`<div class="bc${selIds.has(b.id)?' sel':''}" onclick="cc('${b.id}')"><div class="sch">${selIds.has(b.id)?'✓':''}</div><div class="sdot ${b.status}"></div>${cHTML(b,'bcover','bph','28px')}<div class="bi"><div class="bt">${esc(b.title)}</div><div class="ba">${esc(b.author||'')}</div>${b.rating?`<div class="bst">${strs(b.rating,9)}</div>`:''}</div></div>`).join('')}</div>`;
+  var f=gFilt(),c=document.getElementById('bc');
+  if(!f.length){
+    c.innerHTML='<div class="book-grid"><div class="empty"><div class="empty-ic">📚</div><h3>'+(books.length?'Aucun résultat':'Bibliothèque vide')+'</h3><p>'+(books.length?'Essaie un autre filtre.':'Appuie sur + pour commencer.')+'</p></div></div>';
+    return;
+  }
+  var html='<div class="book-grid'+(selMode?' selmode':'')+'">';
+  for(var i=0;i<f.length;i++){
+    var b=f[i];
+    html+='<div class="bc'+(selIds.has(b.id)?' sel':'')+'" onclick="cc(\''+b.id+'\')">';
+    html+='<div class="sch">'+(selIds.has(b.id)?'✓':'')+'</div>';
+    html+='<div class="sdot '+b.status+'"></div>';
+    html+=covH(b,'bcover','bph','28px');
+    html+='<div class="bi"><div class="bt">'+esc(b.title)+'</div><div class="ba">'+esc(b.author||'')+'</div>';
+    if(b.rating) html+='<div class="bst">'+strs(b.rating,9)+'</div>';
+    html+='</div></div>';
+  }
+  html+='</div>';
+  c.innerHTML=html;
 }
 
 function rList(){
-  const f=gFilt(),c=document.getElementById('bc');
-  if(!f.length){c.innerHTML=`<div class="empty"><div class="empty-ic">📚</div><h3>${books.length?'Aucun résultat':'Bibliothèque vide'}</h3><p>${books.length?'Essaie un autre filtre.':'Appuie sur + pour commencer.'}</p></div>`;return}
-  const lb={lu:'Lu ✓',alire:'À lire',encours:'En cours'};
-  c.innerHTML=`<div class="book-list">${f.map(b=>`<div class="bli${selIds.has(b.id)?' sel':''}" onclick="cc('${b.id}')">${cHTML(b,'blc','blph','20px')}<div class="blinf"><div class="blt">${esc(b.title)}</div><div class="blau">${esc(b.author||'Auteur inconnu')}</div><div class="blmt"><span class="blbg ${b.status}">${lb[b.status]}</span>${b.rating?`<div style="display:flex;gap:1px">${strs(b.rating,10)}</div>`:''} ${b.extRating?`<span class="extr">⭐ ${b.extRating}</span>`:''} ${b.summary?`<span class="extr">📖 Résumé</span>`:''}</div></div></div>`).join('')}</div>`;
+  var f=gFilt(),c=document.getElementById('bc');
+  if(!f.length){
+    c.innerHTML='<div class="empty"><div class="empty-ic">📚</div><h3>'+(books.length?'Aucun résultat':'Bibliothèque vide')+'</h3><p>'+(books.length?'Essaie un autre filtre.':'Appuie sur + pour commencer.')+'</p></div>';
+    return;
+  }
+  var lb={lu:'Lu ✓',alire:'À lire',encours:'En cours'};
+  var html='<div class="book-list">';
+  for(var i=0;i<f.length;i++){
+    var b=f[i];
+    html+='<div class="bli'+(selIds.has(b.id)?' sel':'')+'" onclick="cc(\''+b.id+'\')">';
+    if(showListCovers) html+=covH(b,'blc','blph','20px');
+    html+='<div class="blinf">';
+    html+='<div class="blt">'+esc(b.title)+'</div>';
+    html+='<div class="blau">'+esc(b.author||'Auteur inconnu')+'</div>';
+    html+='<div class="blmt"><span class="blbg '+b.status+'">'+lb[b.status]+'</span>';
+    if(b.rating) html+='<div style="display:flex;gap:1px">'+strs(b.rating,10)+'</div>';
+    if(b.extRating) html+='<span class="extr">⭐ '+b.extRating+'</span>';
+    if(b.summary) html+='<span class="extr">📖 Résumé</span>';
+    html+='</div></div></div>';
+  }
+  html+='</div>';
+  c.innerHTML=html;
 }
 
 function fTab(t){
   cFilter=t;
-  document.querySelectorAll('.tab').forEach((x,i)=>x.classList.toggle('active',['tous','encours','lu','alire'][i]===t));
+  var tabs=document.querySelectorAll('.tab');
+  var keys=['tous','encours','lu','alire'];
+  for(var i=0;i<tabs.length;i++) tabs[i].classList.toggle('active',keys[i]===t);
   rb();
 }
 
@@ -428,8 +521,8 @@ function cancelSel(){
 
 function cc(id){
   if(selMode){
-    selIds.has(id)?selIds.delete(id):selIds.add(id);
-    document.getElementById('sc').textContent=`${selIds.size} sélectionné(s)`;
+    if(selIds.has(id))selIds.delete(id);else selIds.add(id);
+    document.getElementById('sc').textContent=selIds.size+' sélectionné(s)';
     rb();
   } else {openDet(id)}
 }
@@ -437,200 +530,257 @@ function cc(id){
 function addToList(){
   if(selIds.size===0){showT('Sélectionne au moins un livre');return}
   if(lists.length===0){showT('Crée d\'abord une liste via 📋');return}
-  document.getElementById('atlc').innerHTML=`<p style="color:var(--tm);font-size:14px;margin-bottom:16px">Choisir une liste :</p>${lists.map(l=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--card);border-radius:12px;margin-bottom:8px;cursor:pointer" onclick="confATL('${l.id}')"><div><div style="font-family:'Playfair Display',serif;color:var(--beige);font-size:15px">${esc(l.name)}</div><div style="font-size:12px;color:#d4e8c4;margin-top:2px">${l.bookIds.length} livre(s)</div></div><span style="color:var(--beige);font-size:20px">→</span></div>`).join('')}<button class="btn bs" style="width:100%;margin-top:8px" onclick="cM('atlM')">Annuler</button>`;
+  var html='<p style="color:var(--tm);font-size:14px;margin-bottom:16px">Choisir une liste :</p>';
+  for(var i=0;i<lists.length;i++){
+    var l=lists[i];
+    html+='<div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--card);border-radius:12px;margin-bottom:8px;cursor:pointer" onclick="confATL(\''+l.id+'\')">'+
+      '<div><div style="font-family:\'Playfair Display\',serif;color:var(--beige);font-size:15px">'+esc(l.name)+'</div>'+
+      '<div style="font-size:12px;color:#d4e8c4;margin-top:2px">'+l.bookIds.length+' livre(s)</div></div>'+
+      '<span style="color:var(--beige);font-size:20px">→</span></div>';
+  }
+  html+='<button class="btn bs" style="width:100%;margin-top:8px" onclick="cM(\'atlM\')">Annuler</button>';
+  document.getElementById('atlc').innerHTML=html;
   oM('atlM');
 }
 
 function confATL(lid){
-  const l=lists.find(x=>x.id===lid);if(!l)return;
-  let a=0;selIds.forEach(bid=>{if(!l.bookIds.includes(bid)){l.bookIds.push(bid);a++;}});
-  savL();cM('atlM');cancelSel();showT(`${a} livre(s) ajouté(s) à "${l.name}"`);
+  var l=lists.find(function(x){return x.id===lid});if(!l)return;
+  var a=0;
+  selIds.forEach(function(bid){if(l.bookIds.indexOf(bid)<0){l.bookIds.push(bid);a++}});
+  savL();cM('atlM');cancelSel();showT(a+' livre(s) ajouté(s) à "'+l.name+'"');
 }
 
 function hcf(e){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{const d=ev.target.result;document.getElementById('ico').value=d;document.getElementById('cpv').innerHTML=`<img src="${d}" style="width:100%;height:100%;object-fit:cover">`};
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    var d=ev.target.result;
+    document.getElementById('ico').value=d;
+    document.getElementById('cpv').innerHTML='<img src="'+d+'" style="width:100%;height:100%;object-fit:cover">';
+  };
   r.readAsDataURL(f);
 }
 function clrC(){document.getElementById('ico').value='';document.getElementById('cpv').innerHTML='📖';document.getElementById('cfi').value=''}
-function upCP(u){document.getElementById('cpv').innerHTML=u?`<img src="${esc(u)}" style="width:100%;height:100%;object-fit:cover">`:'📖'}
+function upCP(u){document.getElementById('cpv').innerHTML=u?'<img src="'+esc(u)+'" style="width:100%;height:100%;object-fit:cover">':'📖'}
 
 function openAdd(pre){
   document.getElementById('mtit').textContent='Ajouter un livre';
   document.getElementById('os').value='';document.getElementById('rres').className='res';
-  document.getElementById('it').value=pre?.title||'';document.getElementById('iau').value=pre?.author||'';
+  document.getElementById('it').value=(pre&&pre.title)||'';
+  document.getElementById('iau').value=(pre&&pre.author)||'';
   document.getElementById('ist').value='alire';document.getElementById('idt').value='';
-  document.getElementById('ino').value='';document.getElementById('ico').value=pre?.cover||'';
+  document.getElementById('ino').value='';
+  document.getElementById('ico').value=(pre&&pre.cover)||'';
   document.getElementById('eid').value='';document.getElementById('cfi').value='';
-  upCP(pre?.cover||'');cRating=0;uSt(0);oM('addM');
+  upCP((pre&&pre.cover)||'');cRating=0;uSt(0);oM('addM');
 }
 
 function openEdit(id){
-  const b=books.find(x=>x.id===id);if(!b)return;
+  var b=books.find(function(x){return x.id===id});if(!b)return;
   cM('detM');
   document.getElementById('mtit').textContent='Modifier';
   document.getElementById('os').value='';document.getElementById('rres').className='res';
-  document.getElementById('it').value=b.title;document.getElementById('iau').value=b.author||'';
-  document.getElementById('ist').value=b.status;document.getElementById('idt').value=b.date||'';
-  document.getElementById('ino').value=b.note||'';document.getElementById('ico').value=b.cover||'';
+  document.getElementById('it').value=b.title;
+  document.getElementById('iau').value=b.author||'';
+  document.getElementById('ist').value=b.status;
+  document.getElementById('idt').value=b.date||'';
+  document.getElementById('ino').value=b.note||'';
+  document.getElementById('ico').value=b.cover||'';
   document.getElementById('eid').value=id;document.getElementById('cfi').value='';
   upCP(b.cover||'');cRating=b.rating||0;uSt(cRating);oM('addM');
 }
 
 function saveB(){
-  const title=document.getElementById('it').value.trim();
+  var title=document.getElementById('it').value.trim();
   if(!title){showT('Le titre est requis');return}
-  const id=document.getElementById('eid').value;
-  const ex=id?books.find(b=>b.id===id):null;
-  const book={id:id||uid(),title,author:document.getElementById('iau').value.trim(),status:document.getElementById('ist').value,date:document.getElementById('idt').value,rating:cRating,note:document.getElementById('ino').value.trim(),cover:document.getElementById('ico').value,extRating:ex?.extRating||null,summary:ex?.summary||null,addedAt:ex?.addedAt||Date.now()};
-  if(id){const i=books.findIndex(b=>b.id===id);if(i>=0)books[i]=book}else books.unshift(book);
+  var id=document.getElementById('eid').value;
+  var ex=id?books.find(function(b){return b.id===id}):null;
+  var book={
+    id:id||uid(),title:title,
+    author:document.getElementById('iau').value.trim(),
+    status:document.getElementById('ist').value,
+    date:document.getElementById('idt').value,
+    rating:cRating,
+    note:document.getElementById('ino').value.trim(),
+    cover:document.getElementById('ico').value,
+    extRating:(ex&&ex.extRating)||null,
+    summary:(ex&&ex.summary)||null,
+    addedAt:(ex&&ex.addedAt)||Date.now()
+  };
+  if(id){var i=books.findIndex(function(b){return b.id===id});if(i>=0)books[i]=book}
+  else books.unshift(book);
   save();cM('addM');render();showT(id?'Livre modifié ✓':'Livre ajouté ✓');
 }
 
 function sR(v){cRating=v;uSt(v)}
-function uSt(v){document.querySelectorAll('#srr .srb').forEach((b,i)=>b.classList.toggle('active',i<v))}
+function uSt(v){
+  var btns=document.querySelectorAll('#srr .srb');
+  for(var i=0;i<btns.length;i++) btns[i].classList.toggle('active',i<v);
+}
 
 function openDet(id){
-  const b=books.find(x=>x.id===id);if(!b)return;
-  const lb={lu:'Lu ✓',alire:'À lire',encours:'En cours'};
-  document.getElementById('dc2').innerHTML=`
-    <div class="mh2"></div>
-    <div class="mhdr"><span class="mtit" style="font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80%">${esc(b.title)}</span><div class="mcl" onclick="cM('detM')">✕</div></div>
-    <div class="dcw">${b.cover?`<img class="dc" src="${esc(b.cover)}" alt="" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><div class="dph" style="display:none">📖</div>`:`<div class="dph">📖</div>`}</div>
-    <div class="dtit">${esc(b.title)}</div>
-    <div class="dau">${esc(b.author||'Auteur inconnu')}</div>
-    <div class="dmeta">
-      <span class="dbg ${b.status}">${lb[b.status]}</span>
-      ${b.date?`<span class="dbg" style="background:rgba(45,90,45,.1);color:var(--gd);border-color:rgba(45,90,45,.2)">${fmtD(b.date)}</span>`:''}
-    </div>
-    ${b.rating?`<div class="dst">${strs(b.rating,18)}</div>`:''}
-    <div class="dext" id="erz">
-      ${b.extRating?`<span>⭐ <strong>${b.extRating}</strong>/5 Google Books</span><button class="rfbt" onclick="rfExt('${b.id}')">↻</button>`:`<button class="rfbt" onclick="rfExt('${b.id}')">⭐ Note Google Books</button>`}
-    </div>
-    ${b.note?`<div class="dsec"><div class="dstit">Mon avis</div><div class="dnote">${esc(b.note)}</div></div>`:''}
-    <div class="dsec" id="sumzone">
-      <div class="dstit" style="display:flex;align-items:center;justify-content:space-between">
-        <span>Résumé</span>
-        <button class="rfbt" onclick="rfSum('${b.id}')">${b.summary?'↻ Rafraîchir':'📖 Récupérer'}</button>
-      </div>
-      ${b.summary?`<div class="dsum">${esc(b.summary)}</div>`:`<div style="font-size:13px;color:var(--tm);font-style:italic">Aucun résumé. Appuie sur "Récupérer".</div>`}
-    </div>
-    <div class="dact">
-      <button class="btn bs" onclick="openEdit('${b.id}')">Modifier</button>
-      <button class="btn bd" onclick="delB('${b.id}')">Supprimer</button>
-    </div>
-  `;
+  var b=books.find(function(x){return x.id===id});if(!b)return;
+  var lb={lu:'Lu ✓',alire:'À lire',encours:'En cours'};
+  var html='<div class="mh2"></div>';
+  html+='<div class="mhdr"><span class="mtit" style="font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80%">'+esc(b.title)+'</span><div class="mcl" onclick="cM(\'detM\')">✕</div></div>';
+  html+='<div class="dcw" id="covzone">';
+  if(b.cover){
+    html+='<img class="dc" src="'+esc(b.cover)+'" alt="" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">';
+    html+='<div class="dph" style="display:none">📖</div>';
+  } else {
+    html+='<div class="dph">📖</div>';
+  }
+  html+='</div>';
+  html+='<div class="covact"><button class="rfbt" onclick="rfCover(\''+id+'\')">🖼 '+(b.cover?'Changer la couverture':'Charger la couverture')+'</button></div>';
+  html+='<div class="dtit">'+esc(b.title)+'</div>';
+  html+='<div class="dau">'+esc(b.author||'Auteur inconnu')+'</div>';
+  html+='<div class="dmeta"><span class="dbg '+b.status+'">'+lb[b.status]+'</span>';
+  if(b.date) html+='<span class="dbg" style="background:rgba(45,90,45,.1);color:var(--gd);border-color:rgba(45,90,45,.2)">'+fmtD(b.date)+'</span>';
+  html+='</div>';
+  if(b.rating) html+='<div class="dst">'+strs(b.rating,18)+'</div>';
+  html+='<div class="dext" id="erz">';
+  if(b.extRating){
+    html+='<span>⭐ <strong>'+b.extRating+'</strong>/5 Google Books</span><button class="rfbt" onclick="rfExt(\''+id+'\')">↻</button>';
+  } else {
+    html+='<button class="rfbt" onclick="rfExt(\''+id+'\')">⭐ Note Google Books</button>';
+  }
+  html+='</div>';
+  if(b.note) html+='<div class="dsec"><div class="dstit">Mon avis</div><div class="dnote">'+esc(b.note)+'</div></div>';
+  html+='<div class="dsec" id="sumzone">';
+  html+='<div class="dstit" style="display:flex;align-items:center;justify-content:space-between"><span>Résumé</span>';
+  html+='<button class="rfbt" onclick="rfSum(\''+id+'\')">'+(b.summary?'↻ Rafraîchir':'📖 Récupérer')+'</button></div>';
+  if(b.summary){
+    html+='<div class="dsum">'+esc(b.summary)+'</div>';
+  } else {
+    html+='<div style="font-size:13px;color:var(--tm);font-style:italic">Aucun résumé. Appuie sur "Récupérer".</div>';
+  }
+  html+='</div>';
+  html+='<div class="dact"><button class="btn bs" onclick="openEdit(\''+id+'\')">Modifier</button><button class="btn bd" onclick="delB(\''+id+'\')">Supprimer</button></div>';
+  document.getElementById('dc2').innerHTML=html;
   oM('detM');
 }
 
-async function rfExt(id){
-  const b=books.find(x=>x.id===id);if(!b)return;
-  const z=document.getElementById('erz');z.innerHTML='<div class="spin"></div>';
+async function rfCover(id){
+  var b=books.find(function(x){return x.id===id});if(!b)return;
+  var zone=document.getElementById('covzone');
+  if(zone) zone.innerHTML='<div class="spin" style="margin:40px auto;display:block"></div>';
   try{
-    const q=encodeURIComponent(`${b.title} ${b.author||''}`);
-    const res=await fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=1`);
-    const d=await res.json();
-    const v=d.items?.[0]?.volumeInfo;
-    const r=v?.averageRating,cnt=v?.ratingsCount;
-    if(r){
-      const i=books.findIndex(x=>x.id===id);if(i>=0){books[i].extRating=r;save()}
-      z.innerHTML=`<span>⭐ <strong>${r}</strong>/5 Google Books${cnt?` (${cnt} avis)`:''}</span><button class="rfbt" onclick="rfExt('${id}')">↻</button>`;
+    var q=encodeURIComponent(b.title+' '+(b.author||''));
+    var res=await fetch('https://openlibrary.org/search.json?q='+q+'&limit=5&fields=cover_i,title');
+    var d=await res.json();
+    var coverId=null;
+    var docs=d.docs||[];
+    for(var i=0;i<docs.length;i++){if(docs[i].cover_i){coverId=docs[i].cover_i;break}}
+    if(coverId){
+      var url='https://covers.openlibrary.org/b/id/'+coverId+'-M.jpg';
+      var idx=books.findIndex(function(x){return x.id===id});
+      if(idx>=0){books[idx].cover=url;save();render()}
+      if(zone) zone.innerHTML='<img class="dc" src="'+url+'" alt="">';
+      showT('Couverture chargée ✓');
     } else {
-      z.innerHTML=`<span style="color:var(--tm)">Aucune note trouvée</span><button class="rfbt" onclick="rfExt('${id}')">↻</button>`;
+      if(zone) zone.innerHTML='<div class="dph">📖</div>';
+      showT('Aucune couverture trouvée');
     }
-  }catch{z.innerHTML=`<span style="color:var(--tm)">Erreur</span><button class="rfbt" onclick="rfExt('${id}')">↻</button>`}
+  }catch(e){
+    if(zone) zone.innerHTML='<div class="dph">📖</div>';
+    showT('Erreur de connexion');
+  }
+}
+
+async function rfExt(id){
+  var b=books.find(function(x){return x.id===id});if(!b)return;
+  var z=document.getElementById('erz');
+  z.innerHTML='<div class="spin"></div>';
+  try{
+    var q=encodeURIComponent(b.title+' '+(b.author||''));
+    var res=await fetch('https://www.googleapis.com/books/v1/volumes?q='+q+'&maxResults=1');
+    var d=await res.json();
+    var v=d.items&&d.items[0]&&d.items[0].volumeInfo;
+    var r=v&&v.averageRating,cnt=v&&v.ratingsCount;
+    if(r){
+      var i=books.findIndex(function(x){return x.id===id});
+      if(i>=0){books[i].extRating=r;save()}
+      z.innerHTML='<span>⭐ <strong>'+r+'</strong>/5 Google Books'+(cnt?' ('+cnt+' avis)':'')+'</span><button class="rfbt" onclick="rfExt(\''+id+'\')">↻</button>';
+    } else {
+      z.innerHTML='<span style="color:var(--tm)">Aucune note trouvée</span><button class="rfbt" onclick="rfExt(\''+id+'\')">↻</button>';
+    }
+  }catch(e){
+    z.innerHTML='<span style="color:var(--tm)">Erreur</span><button class="rfbt" onclick="rfExt(\''+id+'\')">↻</button>';
+  }
 }
 
 async function rfSum(id){
-  const b=books.find(x=>x.id===id);if(!b)return;
-  const z=document.getElementById('sumzone');
-  z.innerHTML=`<div class="dstit">Résumé</div><div class="spin" style="margin:12px auto;display:block"></div>`;
+  var b=books.find(function(x){return x.id===id});if(!b)return;
+  var z=document.getElementById('sumzone');
+  z.innerHTML='<div class="dstit">Résumé</div><div class="spin" style="margin:12px auto;display:block"></div>';
   try{
-    const q=encodeURIComponent(`${b.title} ${b.author||''}`);
-    const res=await fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=3`);
-    const d=await res.json();
-    let summary=null;
-    for(const item of (d.items||[])){
-      const desc=item.volumeInfo?.description;
+    var q=encodeURIComponent(b.title+' '+(b.author||''));
+    var res=await fetch('https://www.googleapis.com/books/v1/volumes?q='+q+'&maxResults=3');
+    var d=await res.json();
+    var summary=null;
+    var items=d.items||[];
+    for(var i=0;i<items.length;i++){
+      var desc=items[i].volumeInfo&&items[i].volumeInfo.description;
       if(desc&&desc.length>50){summary=desc;break}
     }
     if(summary){
-      const i=books.findIndex(x=>x.id===id);if(i>=0){books[i].summary=summary;save()}
-      z.innerHTML=`<div class="dstit" style="display:flex;align-items:center;justify-content:space-between"><span>Résumé</span><button class="rfbt" onclick="rfSum('${id}')">↻ Rafraîchir</button></div><div class="dsum">${esc(summary)}</div>`;
+      var idx=books.findIndex(function(x){return x.id===id});
+      if(idx>=0){books[idx].summary=summary;save()}
+      z.innerHTML='<div class="dstit" style="display:flex;align-items:center;justify-content:space-between"><span>Résumé</span><button class="rfbt" onclick="rfSum(\''+id+'\')">↻ Rafraîchir</button></div><div class="dsum">'+esc(summary)+'</div>';
     } else {
-      z.innerHTML=`<div class="dstit" style="display:flex;align-items:center;justify-content:space-between"><span>Résumé</span><button class="rfbt" onclick="rfSum('${id}')">↻</button></div><div style="font-size:13px;color:var(--tm);font-style:italic">Aucun résumé trouvé pour ce livre.</div>`;
+      z.innerHTML='<div class="dstit" style="display:flex;align-items:center;justify-content:space-between"><span>Résumé</span><button class="rfbt" onclick="rfSum(\''+id+'\')">↻</button></div><div style="font-size:13px;color:var(--tm);font-style:italic">Aucun résumé trouvé.</div>';
     }
-  }catch{
-    z.innerHTML=`<div class="dstit" style="display:flex;align-items:center;justify-content:space-between"><span>Résumé</span><button class="rfbt" onclick="rfSum('${id}')">↻</button></div><div style="font-size:13px;color:var(--tm);font-style:italic">Erreur de connexion.</div>`;
+  }catch(e){
+    z.innerHTML='<div class="dstit" style="display:flex;align-items:center;justify-content:space-between"><span>Résumé</span><button class="rfbt" onclick="rfSum(\''+id+'\')">↻</button></div><div style="font-size:13px;color:var(--tm);font-style:italic">Erreur de connexion.</div>';
   }
-}
-
-async function fetchSums(){
-  const miss=books.filter(b=>!b.summary);
-  if(!miss.length){showT('Tous les résumés sont déjà là ✓');return}
-  const pg=document.getElementById('sump'),bar=document.getElementById('sumb'),lbl=document.getElementById('suml');
-  pg.style.display='block';let done=0,found=0;
-  for(const book of miss){
-    lbl.textContent=`${done+1} / ${miss.length} — ${book.title.slice(0,30)}…`;
-    try{
-      const q=encodeURIComponent(`${book.title} ${book.author||''}`);
-      const res=await fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=3`);
-      const d=await res.json();
-      let summary=null;
-      for(const item of (d.items||[])){
-        const desc=item.volumeInfo?.description;
-        if(desc&&desc.length>50){summary=desc;break}
-      }
-      if(summary){
-        const i=books.findIndex(b=>b.id===book.id);
-        if(i>=0){books[i].summary=summary;found++}
-      }
-    }catch{}
-    done++;bar.style.width=`${Math.round(done/miss.length*100)}%`;
-    await new Promise(r=>setTimeout(r,350));
-  }
-  save();render();lbl.textContent=`Terminé — ${found} résumé(s) sur ${miss.length}`;showT(`${found} résumés récupérés ✓`);
 }
 
 function delB(id){
   if(!confirm('Supprimer ce livre ?'))return;
-  books=books.filter(b=>b.id!==id);
-  lists.forEach(l=>{l.bookIds=l.bookIds.filter(bid=>bid!==id)});
+  books=books.filter(function(b){return b.id!==id});
+  lists.forEach(function(l){l.bookIds=l.bookIds.filter(function(bid){return bid!==id})});
   save();savL();cM('detM');render();showT('Livre supprimé');
 }
 
 function fmtD(d){
   if(!d)return'';
-  const[y,m,day]=d.split('-');
-  const mo=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
-  return`${parseInt(day)} ${mo[parseInt(m)-1]} ${y}`;
+  var parts=d.split('-');
+  var mo=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+  return parseInt(parts[2])+' '+mo[parseInt(parts[1])-1]+' '+parts[0];
 }
 
 function dbs(){
   clearTimeout(sTimer);
-  const q=document.getElementById('os').value.trim();
+  var q=document.getElementById('os').value.trim();
   if(q.length<3){document.getElementById('rres').className='res';return}
   document.getElementById('ssp').style.display='block';
-  sTimer=setTimeout(()=>doS(q),600);
+  sTimer=setTimeout(function(){doS(q)},600);
 }
 
 async function doS(q){
   try{
-    const res=await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(q)}&limit=6&fields=key,title,author_name,cover_i`);
-    const d=await res.json();
+    var res=await fetch('https://openlibrary.org/search.json?q='+encodeURIComponent(q)+'&limit=6&fields=key,title,author_name,cover_i');
+    var d=await res.json();
     document.getElementById('ssp').style.display='none';
-    const docs=d.docs||[];
-    if(!docs.length){document.getElementById('rres').innerHTML='<div class="sind">Aucun résultat</div>';document.getElementById('rres').className='res vis';return}
-    document.getElementById('rres').innerHTML=docs.map(r=>{
-      const cv=r.cover_i?`https://covers.openlibrary.org/b/id/${r.cover_i}-S.jpg`:'';
-      const full=r.cover_i?`https://covers.openlibrary.org/b/id/${r.cover_i}-M.jpg`:'';
-      const au=(r.author_name||[])[0]||'';
-      const dt=JSON.stringify({title:r.title,author:au,cover:full}).replace(/"/g,'&quot;');
-      return`<div class="ri" onclick="selR(${dt})">${cv?`<img class="rc" src="${cv}" loading="lazy" alt="">`:'<div class="rc" style="display:flex;align-items:center;justify-content:center;font-size:18px">📖</div>'}<div class="rinf"><div class="rt2">${esc(r.title)}</div><div class="rau">${esc(au)}</div></div></div>`;
-    }).join('');
+    var docs=d.docs||[];
+    if(!docs.length){
+      document.getElementById('rres').innerHTML='<div class="sind">Aucun résultat</div>';
+      document.getElementById('rres').className='res vis';return;
+    }
+    var html='';
+    for(var i=0;i<docs.length;i++){
+      var r=docs[i];
+      var cv=r.cover_i?'https://covers.openlibrary.org/b/id/'+r.cover_i+'-S.jpg':'';
+      var full=r.cover_i?'https://covers.openlibrary.org/b/id/'+r.cover_i+'-M.jpg':'';
+      var au=(r.author_name&&r.author_name[0])||'';
+      var dt=JSON.stringify({title:r.title,author:au,cover:full}).replace(/"/g,'&quot;');
+      html+='<div class="ri" onclick="selR('+dt+')">';
+      html+=cv?'<img class="rc" src="'+cv+'" loading="lazy" alt="">':'<div class="rc" style="display:flex;align-items:center;justify-content:center;font-size:18px">📖</div>';
+      html+='<div class="rinf"><div class="rt2">'+esc(r.title)+'</div><div class="rau">'+esc(au)+'</div></div></div>';
+    }
+    document.getElementById('rres').innerHTML=html;
     document.getElementById('rres').className='res vis';
-  }catch{
+  }catch(e){
     document.getElementById('ssp').style.display='none';
     document.getElementById('rres').innerHTML='<div class="sind">Erreur de connexion</div>';
     document.getElementById('rres').className='res vis';
@@ -638,170 +788,271 @@ async function doS(q){
 }
 
 function selR(d){
-  document.getElementById('it').value=d.title||'';document.getElementById('iau').value=d.author||'';
-  document.getElementById('ico').value=d.cover||'';document.getElementById('os').value=d.title||'';
-  document.getElementById('rres').className='res';upCP(d.cover||'');
+  document.getElementById('it').value=d.title||'';
+  document.getElementById('iau').value=d.author||'';
+  document.getElementById('ico').value=d.cover||'';
+  document.getElementById('os').value=d.title||'';
+  document.getElementById('rres').className='res';
+  upCP(d.cover||'');
 }
 
 function showLists(){rLpage();oM('lstM')}
 
 function rLpage(){
-  const c=document.getElementById('lpc2');
-  c.innerHTML=`<button class="nlbt" onclick="oNL()">＋ Nouvelle liste</button>${lists.length===0?`<div class="empty" style="padding:40px 20px"><div class="empty-ic">📋</div><h3>Aucune liste</h3><p>Crée ta première liste.</p></div>`:lists.map(l=>{
-    const pv=l.bookIds.slice(0,5).map(bid=>{const b=books.find(x=>x.id===bid);if(!b)return'';return b.cover?`<img class="lpc" src="${esc(b.cover)}" alt="">`:`<div class="lpph">📖</div>`;}).join('');
-    return`<div class="lcard" onclick="oLD('${l.id}')"><div class="lch"><span class="lcn">${esc(l.name)}</span><span class="lcc">${l.bookIds.length} livre(s)</span></div>${pv?`<div class="lpv">${pv}</div>`:''}</div>`;
-  }).join('')}`;
+  var c=document.getElementById('lpc2');
+  var html='<button class="nlbt" onclick="oNL()">＋ Nouvelle liste</button>';
+  if(lists.length===0){
+    html+='<div class="empty" style="padding:40px 20px"><div class="empty-ic">📋</div><h3>Aucune liste</h3><p>Crée ta première liste.</p></div>';
+  } else {
+    for(var i=0;i<lists.length;i++){
+      var l=lists[i];
+      var pv='';
+      for(var j=0;j<Math.min(l.bookIds.length,5);j++){
+        var b=books.find(function(x){return x.id===l.bookIds[j]});
+        if(b) pv+=b.cover?'<img class="lpc" src="'+esc(b.cover)+'" alt="">':'<div class="lpph">📖</div>';
+      }
+      html+='<div class="lcard" onclick="oLD(\''+l.id+'\')"><div class="lch"><span class="lcn">'+esc(l.name)+'</span><span class="lcc">'+l.bookIds.length+' livre(s)</span></div>';
+      if(pv) html+='<div class="lpv">'+pv+'</div>';
+      html+='</div>';
+    }
+  }
+  c.innerHTML=html;
 }
 
 function oNL(){document.getElementById('nln').value='';oM('nlM')}
 
 function crtL(){
-  const n=document.getElementById('nln').value.trim();
+  var n=document.getElementById('nln').value.trim();
   if(!n){showT('Donne un nom à ta liste');return}
   lists.push({id:uid(),name:n,bookIds:[],createdAt:Date.now()});
-  savL();cM('nlM');rLpage();showT(`Liste "${n}" créée ✓`);
+  savL();cM('nlM');rLpage();showT('Liste "'+n+'" créée ✓');
 }
 
 function oLD(id){
-  const l=lists.find(x=>x.id===id);if(!l)return;
-  const lb=l.bookIds.map(bid=>books.find(b=>b.id===bid)).filter(Boolean);
-  document.getElementById('ldc').innerHTML=`<div class="mh2"></div><div class="ldh"><div class="ldn">${esc(l.name)}</div><button class="btn bd" style="flex:none;padding:8px 14px;font-size:13px" onclick="delL('${l.id}')">Supprimer</button><div class="mcl" onclick="cM('ldM')">✕</div></div>${lb.length===0?`<div class="empty"><div class="empty-ic">📖</div><h3>Liste vide</h3><p>Sélectionne des livres avec le bouton ✓.</p></div>`:lb.map(b=>`<div class="lir">${b.cover?`<img class="lic" src="${esc(b.cover)}" alt="">`:`<div class="liph">📖</div>`}<div class="lii"><div class="lit">${esc(b.title)}</div><div class="lia">${esc(b.author||'')}</div></div><button class="lirm" onclick="rmFL('${l.id}','${b.id}')">✕</button></div>`).join('')}`;
+  var l=lists.find(function(x){return x.id===id});if(!l)return;
+  var lb=l.bookIds.map(function(bid){return books.find(function(b){return b.id===bid})}).filter(Boolean);
+  var html='<div class="mh2"></div><div class="ldh"><div class="ldn">'+esc(l.name)+'</div>';
+  html+='<button class="btn bd" style="flex:none;padding:8px 14px;font-size:13px" onclick="delL(\''+l.id+'\')">Supprimer</button>';
+  html+='<div class="mcl" onclick="cM(\'ldM\')">✕</div></div>';
+  if(lb.length===0){
+    html+='<div class="empty"><div class="empty-ic">📖</div><h3>Liste vide</h3><p>Sélectionne des livres avec le bouton ✓.</p></div>';
+  } else {
+    for(var i=0;i<lb.length;i++){
+      var b=lb[i];
+      html+='<div class="lir">';
+      html+=b.cover?'<img class="lic" src="'+esc(b.cover)+'" alt="">':'<div class="liph">📖</div>';
+      html+='<div class="lii"><div class="lit">'+esc(b.title)+'</div><div class="lia">'+esc(b.author||'')+'</div></div>';
+      html+='<button class="lirm" onclick="rmFL(\''+l.id+'\',\''+b.id+'\')">✕</button></div>';
+    }
+  }
+  document.getElementById('ldc').innerHTML=html;
   oM('ldM');
 }
 
 function rmFL(lid,bid){
-  const l=lists.find(x=>x.id===lid);if(!l)return;
-  l.bookIds=l.bookIds.filter(id=>id!==bid);savL();oLD(lid);showT('Livre retiré');
+  var l=lists.find(function(x){return x.id===lid});if(!l)return;
+  l.bookIds=l.bookIds.filter(function(id){return id!==bid});
+  savL();oLD(lid);showT('Livre retiré');
 }
 
 function delL(id){
   if(!confirm('Supprimer cette liste ?'))return;
-  lists=lists.filter(l=>l.id!==id);savL();cM('ldM');rLpage();showT('Liste supprimée');
+  lists=lists.filter(function(l){return l.id!==id});
+  savL();cM('ldM');rLpage();showT('Liste supprimée');
 }
 
 async function fetchC(){
-  const miss=books.filter(b=>!b.cover);
+  var miss=books.filter(function(b){return !b.cover});
   if(!miss.length){showT('Toutes les couvertures sont déjà là ✓');return}
-  const pg=document.getElementById('cpp'),bar=document.getElementById('cpb2'),lbl=document.getElementById('cpl2');
-  pg.style.display='block';let done=0,found=0;
-  for(const book of miss){
-    lbl.textContent=`${done+1} / ${miss.length} — ${book.title.slice(0,30)}…`;
+  var pg=document.getElementById('cpp'),bar=document.getElementById('cpb2'),lbl=document.getElementById('cpl2');
+  pg.style.display='block';var done=0,found=0;
+  for(var i=0;i<miss.length;i++){
+    var book=miss[i];
+    lbl.textContent=(done+1)+' / '+miss.length+' — '+book.title.slice(0,30)+'…';
     try{
-      const q=encodeURIComponent(`${book.title} ${book.author||''}`);
-      const res=await fetch(`https://openlibrary.org/search.json?q=${q}&limit=1&fields=cover_i`);
-      const d=await res.json();const ci=d.docs?.[0]?.cover_i;
-      if(ci){const i=books.findIndex(b=>b.id===book.id);if(i>=0){books[i].cover=`https://covers.openlibrary.org/b/id/${ci}-M.jpg`;found++}}
-    }catch{}
-    done++;bar.style.width=`${Math.round(done/miss.length*100)}%`;
-    await new Promise(r=>setTimeout(r,300));
+      var q=encodeURIComponent(book.title+' '+(book.author||''));
+      var res=await fetch('https://openlibrary.org/search.json?q='+q+'&limit=1&fields=cover_i');
+      var d=await res.json();
+      var ci=d.docs&&d.docs[0]&&d.docs[0].cover_i;
+      if(ci){
+        var idx=books.findIndex(function(b){return b.id===book.id});
+        if(idx>=0){books[idx].cover='https://covers.openlibrary.org/b/id/'+ci+'-M.jpg';found++}
+      }
+    }catch(e){}
+    done++;bar.style.width=Math.round(done/miss.length*100)+'%';
+    await new Promise(function(r){setTimeout(r,300)});
   }
-  save();render();lbl.textContent=`Terminé — ${found} couverture(s) sur ${miss.length}`;showT(`${found} couvertures récupérées ✓`);
+  save();render();lbl.textContent='Terminé — '+found+' couverture(s) sur '+miss.length;showT(found+' couvertures récupérées ✓');
+}
+
+async function fetchSums(){
+  var miss=books.filter(function(b){return !b.summary});
+  if(!miss.length){showT('Tous les résumés sont déjà là ✓');return}
+  var pg=document.getElementById('sump'),bar=document.getElementById('sumb'),lbl=document.getElementById('suml');
+  pg.style.display='block';var done=0,found=0;
+  for(var i=0;i<miss.length;i++){
+    var book=miss[i];
+    lbl.textContent=(done+1)+' / '+miss.length+' — '+book.title.slice(0,30)+'…';
+    try{
+      var q=encodeURIComponent(book.title+' '+(book.author||''));
+      var res=await fetch('https://www.googleapis.com/books/v1/volumes?q='+q+'&maxResults=3');
+      var d=await res.json();
+      var summary=null;
+      var items=d.items||[];
+      for(var j=0;j<items.length;j++){
+        var desc=items[j].volumeInfo&&items[j].volumeInfo.description;
+        if(desc&&desc.length>50){summary=desc;break}
+      }
+      if(summary){
+        var idx=books.findIndex(function(b){return b.id===book.id});
+        if(idx>=0){books[idx].summary=summary;found++}
+      }
+    }catch(e){}
+    done++;bar.style.width=Math.round(done/miss.length*100)+'%';
+    await new Promise(function(r){setTimeout(r,350)});
+  }
+  save();render();lbl.textContent='Terminé — '+found+' résumé(s) sur '+miss.length;showT(found+' résumés récupérés ✓');
 }
 
 function showStats(){
-  const lu=books.filter(b=>b.status==='lu'),rt=lu.filter(b=>b.rating>0);
-  const avg=rt.length?(rt.reduce((s,b)=>s+b.rating,0)/rt.length).toFixed(1):'—';
-  const yr=new Date().getFullYear(),mo=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
-  const bm={};lu.forEach(b=>{if(b.date){const k=b.date.slice(0,7);bm[k]=(bm[k]||0)+1}});
-  const ty=lu.filter(b=>b.date&&b.date.startsWith(yr)).length;
-  const mx=Math.max(1,...mo.map((_,i)=>bm[`${yr}-${String(i+1).padStart(2,'0')}`]||0));
-  const dist=[5,4,3,2,1].map(r=>({r,count:lu.filter(b=>b.rating===r).length}));
-  document.getElementById('stc').innerHTML=`<div class="ss"><div class="sstit">Vue d'ensemble</div><div class="sgrid"><div class="scard"><span class="scn">${books.length}</span><span class="scl">Total</span></div><div class="scard"><span class="scn">${lu.length}</span><span class="scl">Lus</span></div><div class="scard"><span class="scn">${avg}</span><span class="scl">Note moy.</span></div><div class="scard"><span class="scn">${ty}</span><span class="scl">Lus ${yr}</span></div></div></div><div class="ss"><div class="sstit">Lectures ${yr}</div>${mo.map((m,i)=>{const k=`${yr}-${String(i+1).padStart(2,'0')}`;const c=bm[k]||0;return`<div class="mr"><span class="ml">${m}</span><div class="mbw"><div class="mb2" style="width:${Math.round(c/mx*100)}%"></div></div><span class="mc">${c||''}</span></div>`}).join('')}</div><div class="ss" style="padding-bottom:20px"><div class="sstit">Distribution des notes</div>${dist.map(d=>`<div class="mr"><span class="ml" style="width:40px;font-size:11px">${'★'.repeat(d.r)}</span><div class="mbw"><div class="mb2" style="width:${rt.length?Math.round(d.count/rt.length*100):0}%"></div></div><span class="mc">${d.count||''}</span></div>`).join('')}</div>`;
+  var lu=books.filter(function(b){return b.status==='lu'});
+  var rt=lu.filter(function(b){return b.rating>0});
+  var avg=rt.length?(rt.reduce(function(s,b){return s+b.rating},0)/rt.length).toFixed(1):'—';
+  var yr=new Date().getFullYear();
+  var mo=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+  var bm={};
+  lu.forEach(function(b){if(b.date){var k=b.date.slice(0,7);bm[k]=(bm[k]||0)+1}});
+  var ty=lu.filter(function(b){return b.date&&b.date.indexOf(yr)===0}).length;
+  var mx=1;
+  for(var i=0;i<mo.length;i++){var k=yr+'-'+(i+1<10?'0':'')+(i+1);if(bm[k]&&bm[k]>mx)mx=bm[k]}
+  var dist=[{r:5},{r:4},{r:3},{r:2},{r:1}];
+  for(var i=0;i<dist.length;i++) dist[i].count=lu.filter(function(b){return b.rating===dist[i].r}).length;
+  var html='<div class="ss"><div class="sstit">Vue d\'ensemble</div><div class="sgrid">'+
+    '<div class="scard"><span class="scn">'+books.length+'</span><span class="scl">Total</span></div>'+
+    '<div class="scard"><span class="scn">'+lu.length+'</span><span class="scl">Lus</span></div>'+
+    '<div class="scard"><span class="scn">'+avg+'</span><span class="scl">Note moy.</span></div>'+
+    '<div class="scard"><span class="scn">'+ty+'</span><span class="scl">Lus '+yr+'</span></div></div></div>';
+  html+='<div class="ss"><div class="sstit">Lectures '+yr+'</div>';
+  for(var i=0;i<mo.length;i++){
+    var k=yr+'-'+(i+1<10?'0':'')+(i+1);var c=bm[k]||0;
+    html+='<div class="mr"><span class="ml">'+mo[i]+'</span><div class="mbw"><div class="mb2" style="width:'+Math.round(c/mx*100)+'%"></div></div><span class="mc">'+(c||'')+'</span></div>';
+  }
+  html+='</div><div class="ss" style="padding-bottom:20px"><div class="sstit">Distribution des notes</div>';
+  for(var i=0;i<dist.length;i++){
+    var d=dist[i];var stars='';for(var j=0;j<d.r;j++)stars+='★';
+    html+='<div class="mr"><span class="ml" style="width:40px;font-size:11px">'+stars+'</span><div class="mbw"><div class="mb2" style="width:'+(rt.length?Math.round(d.count/rt.length*100):0)+'%"></div></div><span class="mc">'+(d.count||'')+'</span></div>';
+  }
+  html+='</div>';
+  document.getElementById('stc').innerHTML=html;
   oM('stM');
 }
 
 function showIO(){oM('ioM')}
-function dl(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click();URL.revokeObjectURL(a.href)}
+
+function dl(b,n){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click();URL.revokeObjectURL(a.href)}
 function today(){return new Date().toISOString().slice(0,10)}
-function exJSON(){dl(new Blob([JSON.stringify({books,lists},null,2)],{type:'application/json'}),`mes-lectures-${today()}.json`);showT('Export JSON ✓')}
+
+function exJSON(){
+  dl(new Blob([JSON.stringify({books:books,lists:lists},null,2)],{type:'application/json'}),'mes-lectures-'+today()+'.json');
+  showT('Export JSON ✓');
+}
 function exCSV(){
-  const h=['id','title','author','status','date','rating','note','addedAt'];
-  const rows=books.map(b=>h.map(k=>`"${String(b[k]||'').replace(/"/g,'""')}"`).join(','));
-  dl(new Blob([h.join(',')+'\n'+rows.join('\n')],{type:'text/csv'}),`mes-lectures-${today()}.csv`);
+  var h=['id','title','author','status','date','rating','note','addedAt'];
+  var rows=books.map(function(b){return h.map(function(k){return'"'+String(b[k]||'').replace(/"/g,'""')+'"'}).join(',')});
+  dl(new Blob([h.join(',')+'\n'+rows.join('\n')],{type:'text/csv'}),'mes-lectures-'+today()+'.csv');
   showT('Export CSV ✓');
 }
 
 function impJ(e){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
     try{
-      const d=JSON.parse(ev.target.result);
-      const bd=Array.isArray(d)?d:d.books||[],ld=Array.isArray(d)?[]:d.lists||[];
-      let a=0;bd.forEach(b=>{if(b.title&&!books.find(x=>x.id===b.id)){books.unshift({...b,id:b.id||uid()});a++}});
-      ld.forEach(l=>{if(l.name&&!lists.find(x=>x.id===l.id)){lists.push({...l,id:l.id||uid()})}});
-      save();savL();render();cM('ioM');showT(`${a} livres importés ✓`);
-    }catch{showT('Fichier JSON invalide')}
+      var d=JSON.parse(ev.target.result);
+      var bd=Array.isArray(d)?d:(d.books||[]);
+      var ld=Array.isArray(d)?[]:(d.lists||[]);
+      var a=0;
+      bd.forEach(function(b){if(b.title&&!books.find(function(x){return x.id===b.id})){books.unshift(Object.assign({},b,{id:b.id||uid()}));a++}});
+      ld.forEach(function(l){if(l.name&&!lists.find(function(x){return x.id===l.id})){lists.push(Object.assign({},l,{id:l.id||uid()}))}});
+      save();savL();render();cM('ioM');showT(a+' livres importés ✓');
+    }catch(e){showT('Fichier JSON invalide')}
   };
   r.readAsText(f);e.target.value='';
 }
 
 function impGR(e){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{
-    const lines=ev.target.result.split('\n'),hd=csvL(lines[0]);
-    const idx=k=>hd.findIndex(h=>h.toLowerCase().includes(k));
-    const iT=idx('title'),iA=idx('author'),iS=idx('exclusive shelf'),iR=idx('my rating'),iD=idx('date read'),iN=idx('my review');
-    let a=0;
-    for(let i=1;i<lines.length;i++){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    var lines=ev.target.result.split('\n');
+    var hd=csvL(lines[0]);
+    function idx(k){return hd.findIndex(function(h){return h.toLowerCase().indexOf(k)>=0})}
+    var iT=idx('title'),iA=idx('author'),iS=idx('exclusive shelf'),iR=idx('my rating'),iD=idx('date read'),iN=idx('my review');
+    var a=0;
+    for(var i=1;i<lines.length;i++){
       if(!lines[i].trim())continue;
-      const c=csvL(lines[i]);const t=(c[iT]||'').trim();if(!t)continue;
-      if(books.find(b=>b.title===t))continue;
-      const sh=(c[iS]||'').trim();const st=sh==='read'?'lu':sh==='currently-reading'?'encours':'alire';
-      const rw=(c[iD]||'').trim();let dt='';if(rw){const dd=new Date(rw);if(!isNaN(dd))dt=dd.toISOString().slice(0,10)}
+      var c=csvL(lines[i]);
+      var t=(c[iT]||'').trim();if(!t)continue;
+      if(books.find(function(b){return b.title===t}))continue;
+      var sh=(c[iS]||'').trim();
+      var st=sh==='read'?'lu':sh==='currently-reading'?'encours':'alire';
+      var rw=(c[iD]||'').trim();var dt='';
+      if(rw){var dd=new Date(rw);if(!isNaN(dd))dt=dd.toISOString().slice(0,10)}
       books.push({id:uid(),title:t,author:(c[iA]||'').trim(),status:st,date:dt,rating:parseInt(c[iR])||0,note:(c[iN]||'').trim(),cover:'',extRating:null,summary:null,addedAt:Date.now()});a++;
     }
-    save();render();cM('ioM');showT(`${a} livres importés ✓`);
+    save();render();cM('ioM');showT(a+' livres importés ✓');
   };
   r.readAsText(f,'UTF-8');e.target.value='';
 }
 
 function ldCSV(e){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{
-    const lines=ev.target.result.split('\n').filter(l=>l.trim());
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    var lines=ev.target.result.split('\n').filter(function(l){return l.trim()});
     if(lines.length<2){showT('Fichier vide ou invalide');return}
-    csvH=csvL(lines[0]);csvR=lines.slice(1).map(l=>csvL(l));
-    const opts=csvH.map((h,i)=>`<option value="${i}">${h}</option>`).join('');
-    const none='<option value="">— aucune —</option>';
+    csvH=csvL(lines[0]);csvR=lines.slice(1).map(function(l){return csvL(l)});
+    var opts=csvH.map(function(h,i){return'<option value="'+i+'">'+h+'</option>'}).join('');
+    var none='<option value="">— aucune —</option>';
     document.getElementById('mT').innerHTML=opts;
-    ['mA','mS','mR','mD'].forEach(id=>document.getElementById(id).innerHTML=none+opts);
-    const low=csvH.map(h=>h.toLowerCase());
-    const best=kws=>{for(const k of kws){const i=low.findIndex(h=>h.includes(k));if(i>=0)return String(i)}return''};
+    ['mA','mS','mR','mD'].forEach(function(id){document.getElementById(id).innerHTML=none+opts});
+    var low=csvH.map(function(h){return h.toLowerCase()});
+    function best(kws){for(var i=0;i<kws.length;i++){var idx=low.findIndex(function(h){return h.indexOf(kws[i])>=0});if(idx>=0)return String(idx)}return''}
     document.getElementById('mT').value=best(['title','titre']);
     document.getElementById('mA').value=best(['author','auteur']);
     document.getElementById('mS').value=best(['shelf','status','statut']);
     document.getElementById('mR').value=best(['rating','note']);
     document.getElementById('mD').value=best(['date']);
-    document.getElementById('csvp').textContent=`${csvR.length} ligne(s) — choisis les colonnes :`;
+    document.getElementById('csvp').textContent=csvR.length+' ligne(s) — choisis les colonnes :';
     document.getElementById('csvm').style.display='block';
   };
   r.readAsText(f,'UTF-8');e.target.value='';
 }
 
 function impCC(){
-  const iT=document.getElementById('mT').value;if(iT===''){showT('Sélectionne la colonne Titre');return}
-  const iA=document.getElementById('mA').value,iS=document.getElementById('mS').value,iR=document.getElementById('mR').value,iD=document.getElementById('mD').value;
-  let a=0;
-  csvR.forEach(c=>{
-    const t=(c[parseInt(iT)]||'').trim();if(!t)return;
-    if(books.find(b=>b.title===t))return;
-    const au=iA!==''?(c[parseInt(iA)]||'').trim():'';
-    const rs=iS!==''?(c[parseInt(iS)]||'').toLowerCase():'';
-    const st=rs.includes('read')||rs==='lu'?'lu':rs.includes('current')||rs==='en cours'?'encours':'alire';
-    const rd=iD!==''?(c[parseInt(iD)]||'').trim():'';let dt='';if(rd){const dd=new Date(rd);if(!isNaN(dd))dt=dd.toISOString().slice(0,10)}
-    const rt=iR!==''?parseInt(c[parseInt(iR)])||0:0;
+  var iT=document.getElementById('mT').value;
+  if(iT===''){showT('Sélectionne la colonne Titre');return}
+  var iA=document.getElementById('mA').value,iS=document.getElementById('mS').value;
+  var iR=document.getElementById('mR').value,iD=document.getElementById('mD').value;
+  var a=0;
+  csvR.forEach(function(c){
+    var t=(c[parseInt(iT)]||'').trim();if(!t)return;
+    if(books.find(function(b){return b.title===t}))return;
+    var au=iA!==''?(c[parseInt(iA)]||'').trim():'';
+    var rs=iS!==''?(c[parseInt(iS)]||'').toLowerCase():'';
+    var st=rs.indexOf('read')>=0||rs==='lu'?'lu':rs.indexOf('current')>=0||rs==='en cours'?'encours':'alire';
+    var rd=iD!==''?(c[parseInt(iD)]||'').trim():'';var dt='';
+    if(rd){var dd=new Date(rd);if(!isNaN(dd))dt=dd.toISOString().slice(0,10)}
+    var rt=iR!==''?parseInt(c[parseInt(iR)])||0:0;
     books.push({id:uid(),title:t,author:au,status:st,date:dt,rating:rt,note:'',cover:'',extRating:null,summary:null,addedAt:Date.now()});a++;
   });
-  save();render();document.getElementById('csvm').style.display='none';csvR=[];csvH=[];cM('ioM');showT(`${a} livres importés ✓`);
+  save();render();document.getElementById('csvm').style.display='none';csvR=[];csvH=[];cM('ioM');showT(a+' livres importés ✓');
 }
 
 function csvL(line){
-  const res=[];let cur='';let inQ=false;
-  for(let i=0;i<line.length;i++){
-    const c=line[i];
+  var res=[],cur='',inQ=false;
+  for(var i=0;i<line.length;i++){
+    var c=line[i];
     if(c==='"'){if(inQ&&line[i+1]==='"'){cur+='"';i++}else inQ=!inQ}
     else if(c===','&&!inQ){res.push(cur);cur=''}
     else cur+=c;
@@ -810,8 +1061,8 @@ function csvL(line){
 }
 
 function showT(msg){
-  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2400);
+  var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show')},2400);
 }
 
 render();
