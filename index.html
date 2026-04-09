@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -107,7 +108,7 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 .ri:active{background:var(--card)}
 .rc{width:32px;height:48px;object-fit:cover;border-radius:4px;background:var(--card);flex-shrink:0}
 .rinf{flex:1;min-width:0}
-.rt{font-size:13px;font-weight:500;color:var(--td);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rt2{font-size:13px;font-weight:500;color:var(--td);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rau{font-size:11px;color:var(--tm);margin-top:2px}
 .sind{padding:16px;text-align:center;color:var(--tm);font-size:13px}
 .dcw{display:flex;justify-content:center;padding:20px 0 16px}
@@ -127,6 +128,7 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 .dsec{padding:16px 20px;border-top:1px solid var(--border)}
 .dstit{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gm);margin-bottom:8px;font-weight:500}
 .dnote{font-size:14px;line-height:1.6;color:var(--tm);font-style:italic}
+.dsum{font-size:14px;line-height:1.7;color:var(--td)}
 .dact{display:flex;gap:10px;padding:16px 20px}
 .btn{flex:1;padding:13px;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;border:none;text-align:center}
 .btn:active{transform:scale(.96)}
@@ -215,6 +217,7 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 <button class="fab" id="mfab" onclick="openAdd()">＋</button>
 
 <!-- ADD/EDIT -->
+
 <div class="mo" id="addM" onclick="cOv(event,'addM')">
   <div class="modal">
     <div class="mh2"></div>
@@ -257,24 +260,29 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 </div>
 
 <!-- DETAIL -->
+
 <div class="mo" id="detM" onclick="cOv(event,'detM')"><div class="modal" id="dc2"></div></div>
 
 <!-- STATS -->
+
 <div class="mo" id="stM" onclick="cOv(event,'stM')">
   <div class="modal"><div class="mh2"></div><div class="mhdr"><span class="mtit">Statistiques</span><div class="mcl" onclick="cM('stM')">✕</div></div>
   <div class="stats-page" id="stc"></div></div>
 </div>
 
 <!-- LISTS -->
+
 <div class="mo" id="lstM" onclick="cOv(event,'lstM')">
   <div class="modal"><div class="mh2"></div><div class="mhdr"><span class="mtit">Mes listes</span><div class="mcl" onclick="cM('lstM')">✕</div></div>
   <div class="lpage" id="lpc2"></div></div>
 </div>
 
 <!-- LIST DETAIL -->
+
 <div class="mo" id="ldM" onclick="cOv(event,'ldM')"><div class="modal" id="ldc"></div></div>
 
 <!-- NEW LIST -->
+
 <div class="mo" id="nlM" onclick="cOv(event,'nlM')">
   <div class="modal"><div class="mh2"></div><div class="mhdr"><span class="mtit">Nouvelle liste</span><div class="mcl" onclick="cM('nlM')">✕</div></div>
   <div class="mbdy">
@@ -284,18 +292,24 @@ body{background:var(--bg);color:var(--td);font-family:'DM Sans',sans-serif;min-h
 </div>
 
 <!-- ADD TO LIST -->
+
 <div class="mo" id="atlM" onclick="cOv(event,'atlM')">
   <div class="modal"><div class="mh2"></div><div class="mhdr"><span class="mtit">Ajouter à une liste</span><div class="mcl" onclick="cM('atlM')">✕</div></div>
   <div class="mbdy" id="atlc"></div></div>
 </div>
 
 <!-- IO -->
+
 <div class="mo" id="ioM" onclick="cOv(event,'ioM')">
   <div class="modal"><div class="mh2"></div><div class="mhdr"><span class="mtit">Import / Export</span><div class="mcl" onclick="cM('ioM')">✕</div></div>
   <div class="iopage">
     <div class="ios"><h3>🖼 Couvertures manquantes</h3><p>Récupère automatiquement les couvertures des livres qui n'en ont pas.</p>
       <button class="btn bp" style="width:100%" onclick="fetchC()">Récupérer les couvertures</button>
       <div class="cp2" id="cpp"><div class="cpbw"><div class="cpb" id="cpb2"></div></div><div class="cpl" id="cpl2"></div></div>
+    </div>
+    <div class="ios"><h3>📖 Résumés manquants</h3><p>Récupère automatiquement les résumés des livres qui n'en ont pas encore via Google Books.</p>
+      <button class="btn bp" style="width:100%" onclick="fetchSums()">Récupérer les résumés</button>
+      <div class="cp2" id="sump"><div class="cpbw"><div class="cpb" id="sumb"></div></div><div class="cpl" id="suml"></div></div>
     </div>
     <div class="ios"><h3>📤 Exporter</h3><p>Aucune donnée envoyée sur Internet.</p>
       <div style="display:flex;gap:8px">
@@ -383,7 +397,7 @@ function rList(){
   const f=gFilt(),c=document.getElementById('bc');
   if(!f.length){c.innerHTML=`<div class="empty"><div class="empty-ic">📚</div><h3>${books.length?'Aucun résultat':'Bibliothèque vide'}</h3><p>${books.length?'Essaie un autre filtre.':'Appuie sur + pour commencer.'}</p></div>`;return}
   const lb={lu:'Lu ✓',alire:'À lire',encours:'En cours'};
-  c.innerHTML=`<div class="book-list">${f.map(b=>`<div class="bli${selIds.has(b.id)?' sel':''}" onclick="cc('${b.id}')">${cHTML(b,'blc','blph','20px')}<div class="blinf"><div class="blt">${esc(b.title)}</div><div class="blau">${esc(b.author||'Auteur inconnu')}</div><div class="blmt"><span class="blbg ${b.status}">${lb[b.status]}</span>${b.rating?`<div style="display:flex;gap:1px">${strs(b.rating,10)}</div>`:''} ${b.extRating?`<span class="extr">⭐ ${b.extRating} Google Books</span>`:''}</div></div></div>`).join('')}</div>`;
+  c.innerHTML=`<div class="book-list">${f.map(b=>`<div class="bli${selIds.has(b.id)?' sel':''}" onclick="cc('${b.id}')">${cHTML(b,'blc','blph','20px')}<div class="blinf"><div class="blt">${esc(b.title)}</div><div class="blau">${esc(b.author||'Auteur inconnu')}</div><div class="blmt"><span class="blbg ${b.status}">${lb[b.status]}</span>${b.rating?`<div style="display:flex;gap:1px">${strs(b.rating,10)}</div>`:''} ${b.extRating?`<span class="extr">⭐ ${b.extRating}</span>`:''} ${b.summary?`<span class="extr">📖 Résumé</span>`:''}</div></div></div>`).join('')}</div>`;
 }
 
 function fTab(t){
@@ -469,7 +483,7 @@ function saveB(){
   if(!title){showT('Le titre est requis');return}
   const id=document.getElementById('eid').value;
   const ex=id?books.find(b=>b.id===id):null;
-  const book={id:id||uid(),title,author:document.getElementById('iau').value.trim(),status:document.getElementById('ist').value,date:document.getElementById('idt').value,rating:cRating,note:document.getElementById('ino').value.trim(),cover:document.getElementById('ico').value,extRating:ex?.extRating||null,addedAt:ex?.addedAt||Date.now()};
+  const book={id:id||uid(),title,author:document.getElementById('iau').value.trim(),status:document.getElementById('ist').value,date:document.getElementById('idt').value,rating:cRating,note:document.getElementById('ino').value.trim(),cover:document.getElementById('ico').value,extRating:ex?.extRating||null,summary:ex?.summary||null,addedAt:ex?.addedAt||Date.now()};
   if(id){const i=books.findIndex(b=>b.id===id);if(i>=0)books[i]=book}else books.unshift(book);
   save();cM('addM');render();showT(id?'Livre modifié ✓':'Livre ajouté ✓');
 }
@@ -480,7 +494,33 @@ function uSt(v){document.querySelectorAll('#srr .srb').forEach((b,i)=>b.classLis
 function openDet(id){
   const b=books.find(x=>x.id===id);if(!b)return;
   const lb={lu:'Lu ✓',alire:'À lire',encours:'En cours'};
-  document.getElementById('dc2').innerHTML=`<div class="mh2"></div><div class="mhdr"><span class="mtit" style="font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80%">${esc(b.title)}</span><div class="mcl" onclick="cM('detM')">✕</div></div><div class="dcw">${b.cover?`<img class="dc" src="${esc(b.cover)}" alt="" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><div class="dph" style="display:none">📖</div>`:`<div class="dph">📖</div>`}</div><div class="dtit">${esc(b.title)}</div><div class="dau">${esc(b.author||'Auteur inconnu')}</div><div class="dmeta"><span class="dbg ${b.status}">${lb[b.status]}</span>${b.date?`<span class="dbg" style="background:rgba(45,90,45,.1);color:var(--gd);border-color:rgba(45,90,45,.2)">${fmtD(b.date)}</span>`:''}</div>${b.rating?`<div class="dst">${strs(b.rating,18)}</div>`:''}<div class="dext" id="erz">${b.extRating?`<span>⭐ <strong>${b.extRating}</strong>/5 Google Books</span><button class="rfbt" onclick="rfExt('${b.id}')">↻ Rafraîchir</button>`:`<button class="rfbt" onclick="rfExt('${b.id}')">⭐ Voir la note Google Books</button>`}</div>${b.note?`<div class="dsec"><div class="dstit">Mon avis</div><div class="dnote">${esc(b.note)}</div></div>`:''}<div class="dact"><button class="btn bs" onclick="openEdit('${b.id}')">Modifier</button><button class="btn bd" onclick="delB('${b.id}')">Supprimer</button></div>`;
+  document.getElementById('dc2').innerHTML=`
+    <div class="mh2"></div>
+    <div class="mhdr"><span class="mtit" style="font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80%">${esc(b.title)}</span><div class="mcl" onclick="cM('detM')">✕</div></div>
+    <div class="dcw">${b.cover?`<img class="dc" src="${esc(b.cover)}" alt="" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><div class="dph" style="display:none">📖</div>`:`<div class="dph">📖</div>`}</div>
+    <div class="dtit">${esc(b.title)}</div>
+    <div class="dau">${esc(b.author||'Auteur inconnu')}</div>
+    <div class="dmeta">
+      <span class="dbg ${b.status}">${lb[b.status]}</span>
+      ${b.date?`<span class="dbg" style="background:rgba(45,90,45,.1);color:var(--gd);border-color:rgba(45,90,45,.2)">${fmtD(b.date)}</span>`:''}
+    </div>
+    ${b.rating?`<div class="dst">${strs(b.rating,18)}</div>`:''}
+    <div class="dext" id="erz">
+      ${b.extRating?`<span>⭐ <strong>${b.extRating}</strong>/5 Google Books</span><button class="rfbt" onclick="rfExt('${b.id}')">↻</button>`:`<button class="rfbt" onclick="rfExt('${b.id}')">⭐ Note Google Books</button>`}
+    </div>
+    ${b.note?`<div class="dsec"><div class="dstit">Mon avis</div><div class="dnote">${esc(b.note)}</div></div>`:''}
+    <div class="dsec" id="sumzone">
+      <div class="dstit" style="display:flex;align-items:center;justify-content:space-between">
+        <span>Résumé</span>
+        <button class="rfbt" onclick="rfSum('${b.id}')">${b.summary?'↻ Rafraîchir':'📖 Récupérer'}</button>
+      </div>
+      ${b.summary?`<div class="dsum">${esc(b.summary)}</div>`:`<div style="font-size:13px;color:var(--tm);font-style:italic">Aucun résumé. Appuie sur "Récupérer".</div>`}
+    </div>
+    <div class="dact">
+      <button class="btn bs" onclick="openEdit('${b.id}')">Modifier</button>
+      <button class="btn bd" onclick="delB('${b.id}')">Supprimer</button>
+    </div>
+  `;
   oM('detM');
 }
 
@@ -492,14 +532,65 @@ async function rfExt(id){
     const res=await fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=1`);
     const d=await res.json();
     const v=d.items?.[0]?.volumeInfo;
-    const r=v?.averageRating,c=v?.ratingsCount;
+    const r=v?.averageRating,cnt=v?.ratingsCount;
     if(r){
       const i=books.findIndex(x=>x.id===id);if(i>=0){books[i].extRating=r;save()}
-      z.innerHTML=`<span>⭐ <strong>${r}</strong>/5 Google Books${c?` (${c} avis)`:''}</span><button class="rfbt" onclick="rfExt('${id}')">↻ Rafraîchir</button>`;
+      z.innerHTML=`<span>⭐ <strong>${r}</strong>/5 Google Books${cnt?` (${cnt} avis)`:''}</span><button class="rfbt" onclick="rfExt('${id}')">↻</button>`;
     } else {
-      z.innerHTML=`<span style="color:var(--tm)">Aucune note trouvée</span><button class="rfbt" onclick="rfExt('${id}')">↻ Réessayer</button>`;
+      z.innerHTML=`<span style="color:var(--tm)">Aucune note trouvée</span><button class="rfbt" onclick="rfExt('${id}')">↻</button>`;
     }
-  }catch{z.innerHTML=`<span style="color:var(--tm)">Erreur de connexion</span><button class="rfbt" onclick="rfExt('${id}')">↻ Réessayer</button>`}
+  }catch{z.innerHTML=`<span style="color:var(--tm)">Erreur</span><button class="rfbt" onclick="rfExt('${id}')">↻</button>`}
+}
+
+async function rfSum(id){
+  const b=books.find(x=>x.id===id);if(!b)return;
+  const z=document.getElementById('sumzone');
+  z.innerHTML=`<div class="dstit">Résumé</div><div class="spin" style="margin:12px auto;display:block"></div>`;
+  try{
+    const q=encodeURIComponent(`${b.title} ${b.author||''}`);
+    const res=await fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=3`);
+    const d=await res.json();
+    let summary=null;
+    for(const item of (d.items||[])){
+      const desc=item.volumeInfo?.description;
+      if(desc&&desc.length>50){summary=desc;break}
+    }
+    if(summary){
+      const i=books.findIndex(x=>x.id===id);if(i>=0){books[i].summary=summary;save()}
+      z.innerHTML=`<div class="dstit" style="display:flex;align-items:center;justify-content:space-between"><span>Résumé</span><button class="rfbt" onclick="rfSum('${id}')">↻ Rafraîchir</button></div><div class="dsum">${esc(summary)}</div>`;
+    } else {
+      z.innerHTML=`<div class="dstit" style="display:flex;align-items:center;justify-content:space-between"><span>Résumé</span><button class="rfbt" onclick="rfSum('${id}')">↻</button></div><div style="font-size:13px;color:var(--tm);font-style:italic">Aucun résumé trouvé pour ce livre.</div>`;
+    }
+  }catch{
+    z.innerHTML=`<div class="dstit" style="display:flex;align-items:center;justify-content:space-between"><span>Résumé</span><button class="rfbt" onclick="rfSum('${id}')">↻</button></div><div style="font-size:13px;color:var(--tm);font-style:italic">Erreur de connexion.</div>`;
+  }
+}
+
+async function fetchSums(){
+  const miss=books.filter(b=>!b.summary);
+  if(!miss.length){showT('Tous les résumés sont déjà là ✓');return}
+  const pg=document.getElementById('sump'),bar=document.getElementById('sumb'),lbl=document.getElementById('suml');
+  pg.style.display='block';let done=0,found=0;
+  for(const book of miss){
+    lbl.textContent=`${done+1} / ${miss.length} — ${book.title.slice(0,30)}…`;
+    try{
+      const q=encodeURIComponent(`${book.title} ${book.author||''}`);
+      const res=await fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=3`);
+      const d=await res.json();
+      let summary=null;
+      for(const item of (d.items||[])){
+        const desc=item.volumeInfo?.description;
+        if(desc&&desc.length>50){summary=desc;break}
+      }
+      if(summary){
+        const i=books.findIndex(b=>b.id===book.id);
+        if(i>=0){books[i].summary=summary;found++}
+      }
+    }catch{}
+    done++;bar.style.width=`${Math.round(done/miss.length*100)}%`;
+    await new Promise(r=>setTimeout(r,350));
+  }
+  save();render();lbl.textContent=`Terminé — ${found} résumé(s) sur ${miss.length}`;showT(`${found} résumés récupérés ✓`);
 }
 
 function delB(id){
@@ -536,7 +627,7 @@ async function doS(q){
       const full=r.cover_i?`https://covers.openlibrary.org/b/id/${r.cover_i}-M.jpg`:'';
       const au=(r.author_name||[])[0]||'';
       const dt=JSON.stringify({title:r.title,author:au,cover:full}).replace(/"/g,'&quot;');
-      return`<div class="ri" onclick="selR(${dt})">${cv?`<img class="rc" src="${cv}" loading="lazy" alt="">`:'<div class="rc" style="display:flex;align-items:center;justify-content:center;font-size:18px">📖</div>'}<div class="rinf"><div class="rt">${esc(r.title)}</div><div class="rau">${esc(au)}</div></div></div>`;
+      return`<div class="ri" onclick="selR(${dt})">${cv?`<img class="rc" src="${cv}" loading="lazy" alt="">`:'<div class="rc" style="display:flex;align-items:center;justify-content:center;font-size:18px">📖</div>'}<div class="rinf"><div class="rt2">${esc(r.title)}</div><div class="rau">${esc(au)}</div></div></div>`;
     }).join('');
     document.getElementById('rres').className='res vis';
   }catch{
@@ -659,7 +750,7 @@ function impGR(e){
       if(books.find(b=>b.title===t))continue;
       const sh=(c[iS]||'').trim();const st=sh==='read'?'lu':sh==='currently-reading'?'encours':'alire';
       const rw=(c[iD]||'').trim();let dt='';if(rw){const dd=new Date(rw);if(!isNaN(dd))dt=dd.toISOString().slice(0,10)}
-      books.push({id:uid(),title:t,author:(c[iA]||'').trim(),status:st,date:dt,rating:parseInt(c[iR])||0,note:(c[iN]||'').trim(),cover:'',extRating:null,addedAt:Date.now()});a++;
+      books.push({id:uid(),title:t,author:(c[iA]||'').trim(),status:st,date:dt,rating:parseInt(c[iR])||0,note:(c[iN]||'').trim(),cover:'',extRating:null,summary:null,addedAt:Date.now()});a++;
     }
     save();render();cM('ioM');showT(`${a} livres importés ✓`);
   };
@@ -702,7 +793,7 @@ function impCC(){
     const st=rs.includes('read')||rs==='lu'?'lu':rs.includes('current')||rs==='en cours'?'encours':'alire';
     const rd=iD!==''?(c[parseInt(iD)]||'').trim():'';let dt='';if(rd){const dd=new Date(rd);if(!isNaN(dd))dt=dd.toISOString().slice(0,10)}
     const rt=iR!==''?parseInt(c[parseInt(iR)])||0:0;
-    books.push({id:uid(),title:t,author:au,status:st,date:dt,rating:rt,note:'',cover:'',extRating:null,addedAt:Date.now()});a++;
+    books.push({id:uid(),title:t,author:au,status:st,date:dt,rating:rt,note:'',cover:'',extRating:null,summary:null,addedAt:Date.now()});a++;
   });
   save();render();document.getElementById('csvm').style.display='none';csvR=[];csvH=[];cM('ioM');showT(`${a} livres importés ✓`);
 }
@@ -725,5 +816,6 @@ function showT(msg){
 
 render();
 </script>
+
 </body>
 </html>
